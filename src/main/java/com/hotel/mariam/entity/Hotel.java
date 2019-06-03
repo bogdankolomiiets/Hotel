@@ -5,29 +5,18 @@ public class Hotel {
     private String address;
     private String phone;
     private int countOfFloors;
-    private int countOfSingleRooms;
-    private int countOfDoubleRooms;
-    private int countOfTripleRooms;
-    private int countOfQuadRooms;
-    private int countOfKingRooms;
+    private int countOfStars;
 
     public Hotel() {
     }
 
     public Hotel(String name, String address,
-                 String phone, int countOfFloors,
-                 int countOfSingleRooms, int countOfDoubleRooms,
-                 int countOfTripleRooms, int countOfQuadRooms,
-                 int countOfKingRooms) {
+                 String phone, int countOfFloors, int countOfStars) {
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.countOfFloors = countOfFloors;
-        this.countOfSingleRooms = countOfSingleRooms;
-        this.countOfDoubleRooms = countOfDoubleRooms;
-        this.countOfTripleRooms = countOfTripleRooms;
-        this.countOfQuadRooms = countOfQuadRooms;
-        this.countOfKingRooms = countOfKingRooms;
+        this.countOfStars = countOfStars;
     }
 
     public String getName() {
@@ -62,43 +51,22 @@ public class Hotel {
         this.countOfFloors = countOfFloors;
     }
 
-    public int getCountOfSingleRooms() {
-        return countOfSingleRooms;
+    public int getCountOfStars() {
+        return countOfStars;
     }
 
-    public void setCountOfSingleRooms(int countOfSingleRooms) {
-        this.countOfSingleRooms = countOfSingleRooms;
+    public void setCountOfStars(int countOfStars) {
+        this.countOfStars = countOfStars;
     }
 
-    public int getCountOfDoubleRooms() {
-        return countOfDoubleRooms;
-    }
-
-    public void setCountOfDoubleRooms(int countOfDoubleRooms) {
-        this.countOfDoubleRooms = countOfDoubleRooms;
-    }
-
-    public int getCountOfTripleRooms() {
-        return countOfTripleRooms;
-    }
-
-    public void setCountOfTripleRooms(int countOfTripleRooms) {
-        this.countOfTripleRooms = countOfTripleRooms;
-    }
-
-    public int getCountOfQuadRooms() {
-        return countOfQuadRooms;
-    }
-
-    public void setCountOfQuadRooms(int countOfQuadRooms) {
-        this.countOfQuadRooms = countOfQuadRooms;
-    }
-
-    public int getCountOfKingRooms() {
-        return countOfKingRooms;
-    }
-
-    public void setCountOfKingRooms(int countOfKingRooms) {
-        this.countOfKingRooms = countOfKingRooms;
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", countOfFloors=" + countOfFloors +
+                ", countOfStars=" + countOfStars +
+                '}';
     }
 }

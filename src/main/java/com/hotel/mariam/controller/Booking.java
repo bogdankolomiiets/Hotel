@@ -17,7 +17,7 @@ public class Booking extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LOGGER.info("Booking");
-        Hotel mariamHotel = new HotelModel().getByHotelName("Mariam");
+        Hotel mariamHotel = new HotelModel().getByHotelName("Mariam").get(0);
         req.setAttribute("hotel", mariamHotel);
         RequestDispatcher dispatcher = req.getRequestDispatcher("jsps/bookingPage.jsp");
         dispatcher.forward(req, resp);

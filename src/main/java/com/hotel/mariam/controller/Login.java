@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Hotel mariamHotel = new HotelModel().getByHotelName("Mariam");
+        Hotel mariamHotel = new HotelModel().getByHotelName("Mariam").get(0);
         req.setAttribute("hotel", mariamHotel);
         RequestDispatcher dispatcher = req.getRequestDispatcher("jsps/login.jsp");
         dispatcher.forward(req, resp);
