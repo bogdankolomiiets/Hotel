@@ -10,12 +10,13 @@ public class Room {
     private Calendar roomStartDate;
     private Calendar roomEndDate;
     private int hotelID;
+    private int clientID;
 
     public Room() {
     }
 
     public Room(int roomId, RoomTypes roomType, double roomPrice, Calendar roomBookingDate,
-                Calendar roomStartDate, Calendar roomEndDate, int hotelID) {
+                Calendar roomStartDate, Calendar roomEndDate, int hotelID, int clientID) {
         this.roomId = roomId;
         this.roomType = roomType;
         this.roomPrice = roomPrice;
@@ -23,6 +24,7 @@ public class Room {
         this.roomStartDate = roomStartDate;
         this.roomEndDate = roomEndDate;
         this.hotelID = hotelID;
+        this.clientID = clientID;
     }
 
     public int getRoomId() {
@@ -79,5 +81,13 @@ public class Room {
 
     public void setHotelID(int hotelID) {
         this.hotelID = hotelID;
+    }
+
+    public int getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(int clientID) {
+        this.clientID = clientID;
     }
 }

@@ -6,9 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="mariam-hotel" />
+        <module name="mariam" />
         <module name="mariamhotel" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mariam-hotel" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

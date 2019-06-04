@@ -3,14 +3,13 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 	      http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
-
     <servlet>
         <servlet-name>home</servlet-name>
         <servlet-class>com.hotel.mariam.controller.MainServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>home</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/mariam</url-pattern>
     </servlet-mapping>
 
     <servlet>

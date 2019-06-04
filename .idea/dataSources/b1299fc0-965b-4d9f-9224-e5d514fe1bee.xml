@@ -1253,16 +1253,21 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="306" parent="280" name="room_fk">
+    <column id="306" parent="280" name="clientID">
+      <Position>8</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="307" parent="280" name="room_fk">
       <ColNames>hotelID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="307" parent="280" name="PRIMARY">
+    <key id="308" parent="280" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>roomId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="308" parent="280" name="room_fk">
+    <foreign-key id="309" parent="280" name="room_fk">
       <ColNames>hotelID</ColNames>
       <RefSchemaName>mariam</RefSchemaName>
       <RefTableName>hotel</RefTableName>
