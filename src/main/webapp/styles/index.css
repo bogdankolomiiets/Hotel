@@ -1,0 +1,23 @@
+body {
+    height: 100%;
+    background: #4b2d2b;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper{
+    display: contents;
+    height: 100%;
+}
+
+img {
+    vertical-align:middle;
+}
+.text {
+    vertical-align:middle;
+    text-indent: 50px;
+    text-align: justify;
+    padding: 50px;
+    color: #f2f2f2;
+    font-size: 40px;
+}

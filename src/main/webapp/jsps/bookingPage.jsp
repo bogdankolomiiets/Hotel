@@ -1,17 +1,17 @@
-<%@ page import="com.hotel.mariam.entity.Hotel" %>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="styles/index.css" type="text/css">
 <html>
 <head>
-    <% Hotel hotel = (Hotel) request.getAttribute("hotel");%>
-    <title><% out.print(hotel.getName());%></title>
-    <style>
-        <%@include file="/styles/booking.css"%>
-    </style>
+    <title><c:out value="${hotel.getName()} - Booking page"/></title>
 </head>
 <body>
-<ul>
-    <li style="background: blueviolet">Close</li>
-</ul>
+<jsp:include page="/jsps/header.jsp" />
+
+<body>
+<div class="wrapper">
+    <div class="content"></div>
+</div>
+<jsp:include page="/jsps/footer.jsp" />
 </body>
 </html>

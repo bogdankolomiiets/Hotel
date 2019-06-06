@@ -1,6 +1,7 @@
 package com.hotel.mariam.controller;
 
 import com.hotel.mariam.entity.Hotel;
+import com.hotel.mariam.logic.CheckSession;
 import com.hotel.mariam.model.HotelModel;
 import org.apache.log4j.Logger;
 
@@ -13,13 +14,19 @@ import java.io.IOException;
 
 public class Booking extends HttpServlet {
     private static Logger LOGGER = Logger.getLogger(Booking.class);
-
+    RequestDispatcher dispatcher;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LOGGER.info("Booking");
         Hotel mariamHotel = new HotelModel().getByHotelName("Mariam").get(0);
         req.setAttribute("hotel", mariamHotel);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("jsps/bookingPage.jsp");
-        dispatcher.forward(req, resp);
+        if (!CheckSession.checkLoginStatus(req)){
+            dispatcher = req.getRequestDispatcher("jsps/login.jsp");
+            dispatcher.forward(req, resp);
+        } else {
+            dispatcher = req.getRequestDispatcher("jsps/bookingPage.jsp");
+            dispatcher.forward(req, resp);
+        }
+
     }
 }

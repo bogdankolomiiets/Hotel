@@ -1,0 +1,45 @@
+.topnav {
+    background-color: #4b2d2b;
+    line-height: 130px;
+    overflow: hidden;
+    align-items: center;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: transparent;
+    color: silver;
+}
+
+.topmenu{
+    margin: 0px;
+    padding: 0px;
+}
+
+.topmenu > li:hover .submenu{
+    visibility: visible;
+    margin-top: 2px;
+    display: inline-grid;
+}
+
+.submenu{
+    visibility: hidden;
+    padding-left: 0px;
+    background: transparent;
+
+}
+
+li{
+    display: inline;
+    text-align: center;
+}
