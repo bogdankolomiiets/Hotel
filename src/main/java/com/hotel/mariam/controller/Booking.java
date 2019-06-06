@@ -17,16 +17,19 @@ public class Booking extends HttpServlet {
     RequestDispatcher dispatcher;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        LOGGER.info("Booking");
         Hotel mariamHotel = new HotelModel().getByHotelName("Mariam").get(0);
         req.setAttribute("hotel", mariamHotel);
-        if (!CheckSession.checkLoginStatus(req)){
+
+        //if user changes localization - put info to cookie
+        CheckSession.setNewLocalizationToCookie(req, resp);
+
+        /*if (!CheckSession.checkLoginStatus(req)){
             dispatcher = req.getRequestDispatcher("jsps/login.jsp");
             dispatcher.forward(req, resp);
         } else {
             dispatcher = req.getRequestDispatcher("jsps/bookingPage.jsp");
             dispatcher.forward(req, resp);
-        }
+        }*/
 
     }
 }

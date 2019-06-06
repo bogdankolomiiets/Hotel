@@ -14,34 +14,17 @@ import java.util.Locale;
 
 public class MainServlet extends HttpServlet {
     private Hotel mariamHotel;
+    private RequestDispatcher dispatcher;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("hotel", mariamHotel);
-        //checking login status
-        CheckSession.checkLoginStatus(req);
 
         //if user changes localization - put info to cookie
          CheckSession.setNewLocalizationToCookie(req, resp);
 
-        //setting current localization
-        Cookie[] cookie = req.getCookies();
-        if (cookie != null){
-            //setting default attribute
-            req.setAttribute("language", "en");
-            resp.setLocale(Locale.ENGLISH);
-
-            for (Cookie c : cookie){
-                if (c.getValue().equals("ua")) {
-                    req.setAttribute("language", "ua");
-                    resp.setLocale(new Locale("uk", "UA"));
-                    break;
-                }
-            }
-        }
-
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/jsps/index.jsp");
-        dispatcher.forward(req, resp);
+         dispatcher = req.getRequestDispatcher("/jsps/index.jsp");
+         dispatcher.forward(req, resp);
     }
 
     @Override

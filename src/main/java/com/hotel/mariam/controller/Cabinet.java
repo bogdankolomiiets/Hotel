@@ -16,7 +16,10 @@ public class Cabinet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Hotel mariamHotel = new HotelModel().getByHotelName("Mariam").get(0);
         req.setAttribute("hotel", mariamHotel);
-        CheckSession.checkLoginStatus(req);
+
+        //if user changes localization - put info to cookie
+        CheckSession.setNewLocalizationToCookie(req, resp);
+
         RequestDispatcher dispatcher = req.getRequestDispatcher("/jsps/cabinet.jsp");
         dispatcher.forward(req, resp);
     }

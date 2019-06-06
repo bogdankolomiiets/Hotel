@@ -9,11 +9,18 @@
         <ul class="topmenu">
             <li><a href="/mariam"><img src="/images/Letter_M.png" alt="logo img" width="250" height="132"></a></li>
             <li><a href="/mariam"><fmt:message key="header.menu.home"/></a></li>
-            ${check_login}
+            <c:set var="login" value="${cookie.get('login')}"/>
+            <c:if test="${login == null}">
+                <li><a href="/login"><fmt:message key="header.menu.login"/></a></li>
+                <li><a href="/signup"><fmt:message key="header.menu.signup"/></a></li>
+            </c:if>
+            <c:if test="${login != null}">
+                <li><a href="/logout"><fmt:message key="header.menu.logout"/></a></li>
+            </c:if>
             <li><a href="/book"><fmt:message key="header.menu.book"/></a></li>
             <li><a href="#"><fmt:message key="header.menu.language"/></a>
                 <ul class="submenu">
-                    <li><a href="${pageContext.request.contextPath}?language=ua"><img src="/images/UA-Ukraine-Flag-icon.png" alt="UA" width="50"/></a></li>
+                    <li><a href="${pageContext.request.contextPath}?language=ua"><img src="/images/UA-Ukraine-Flag-icon.png" alt="EN" width="50"/></a></li>
                     <li><a href="${pageContext.request.contextPath}?language=en"><img src="/images/United-Kingdom-flag-icon.png" alt="EN" width="50"/></a></li>
                 </ul>
             </li>

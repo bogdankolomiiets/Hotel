@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:setLocale value="${pageContext.response.locale}"/>
+<fmt:setBundle basename="language"/>
 <link rel="stylesheet" href="styles/index.css" type="text/css">
 <html>
 <head>
