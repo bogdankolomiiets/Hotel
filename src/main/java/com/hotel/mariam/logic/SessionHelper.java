@@ -42,4 +42,10 @@ public class SessionHelper {
             dispatcher.forward(req, resp);
         }
     }
+
+    public static void setClientValid(HttpServletRequest req, HttpServletResponse resp){
+        Cookie cookie = new Cookie("user", "valid");
+        cookie.setMaxAge(60 * 60 * 24 * 7);
+        resp.addCookie(cookie);
+    }
 }

@@ -1,7 +1,9 @@
 package com.hotel.mariam.controller;
 
+import com.hotel.mariam.entity.Client;
 import com.hotel.mariam.entity.Hotel;
 import com.hotel.mariam.logic.SessionHelper;
+import com.hotel.mariam.model.ClientModel;
 import com.hotel.mariam.model.HotelModel;
 
 import javax.servlet.RequestDispatcher;
@@ -23,5 +25,19 @@ public class Login extends HttpServlet {
 
         dispatcher = req.getRequestDispatcher("jsps/login.jsp");
         SessionHelper.forward(req, resp, dispatcher);
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ClientModel model = new ClientModel();
+        Client client;
+        if ((client = model.getClient(req.getParameter("email"), req.getParameter("password"))) != null) {
+            SessionHelper.setClientValid(req, resp);
+            resp.sendRedirect("/mariam");
+        } else {
+            req.setAttribute("userExists", "-1");
+            doGet(req, resp);
+        }
     }
 }

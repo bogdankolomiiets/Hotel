@@ -3,6 +3,8 @@ package com.hotel.mariam.model;
 import com.hotel.mariam.dao.ClientDAO;
 import com.hotel.mariam.entity.Client;
 import com.hotel.mariam.logic.ConnectionProvider;
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,23 @@ public class ClientModel implements ClientDAO {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM client WHERE clientEmail LIKE '" + clientEmail + "'");
             return extractClientFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Client getClient(String clientEmail, String pass) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM client WHERE clientEmail = '" + clientEmail + "'");
+            Client client = extractClientFromResultSet(rs);
+            if (client != null) {
+                if (BCrypt.checkpw(pass, client.getClientPass())) {
+                    return client;
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
