@@ -7,19 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cf22be4-6b9e-4cb7-88d6-6d6aad213779" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Booking.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Cabinet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Cabinet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/MainServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/MainServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/SignUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/logic/CheckSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/logic/CheckSession.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsps/bookingPage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsps/bookingPage.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsps/cabinet.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsps/cabinet.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsps/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsps/header.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsps/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsps/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsps/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsps/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsps/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsps/signup.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/styles/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/styles/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/logic/CheckSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hotel/mariam/logic/SessionHelper.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -79,28 +73,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/jsps/header.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="79" lean-forward="true" selection-start-line="23" selection-start-column="79" selection-end-line="23" selection-end-column="79" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/jsps/index.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="42" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/MainServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="26" column="39" lean-forward="true" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
+            <state relative-caret-position="408">
+              <caret line="24" column="48" lean-forward="true" selection-start-line="24" selection-end-line="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -109,10 +85,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/logic/CheckSession.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/SignUp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+            <state relative-caret-position="425">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -149,7 +125,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/styles/cabinet.css" />
         <option value="$PROJECT_DIR$/src/main/webapp/styles/booking.css" />
         <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/dao/ClientDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/entity/Client.java" />
@@ -193,13 +168,14 @@
         <option value="$PROJECT_DIR$/src/main/webapp/jsps/cabinet.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/jsps/login.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/jsps/signup.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Booking.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Cabinet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Login.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/SignUp.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/jsps/header.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/logic/CheckSession.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/MainServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/logic/SessionHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Login.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Booking.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Cabinet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/SignUp.java" />
       </list>
     </option>
   </component>
@@ -248,6 +224,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -378,7 +355,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="CatdeaLogs" />
     </panes>
   </component>
@@ -530,12 +506,16 @@
       <workItem from="1559729337746" duration="41317000" />
       <workItem from="1559775863680" duration="308000" />
       <workItem from="1559776404405" duration="411000" />
-      <workItem from="1559803514998" duration="19853000" />
+      <workItem from="1559803514998" duration="19955000" />
+      <workItem from="1559856123628" duration="1381000" />
+      <workItem from="1559857588627" duration="282000" />
+      <workItem from="1559861178640" duration="28000" />
+      <workItem from="1559888502710" duration="12106000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="190009000" />
+    <option name="totallyTimeSpent" value="203908000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -550,7 +530,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31823027" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.32942432" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -560,17 +540,17 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.3846154" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" visible="true" weight="0.3846154" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32936078" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50053304" side_tool="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5010661" side_tool="true" weight="0.3846154" />
       <window_info anchor="bottom" id="Application Servers" order="10" weight="0.32936078" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="14" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Console" order="15" weight="0.32936078" />
@@ -630,13 +610,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/entity/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-457">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/model/ClientModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1700">
@@ -835,10 +808,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/language_en_ru.properties">
-      <provider editor-type-id="ResourceBundle" />
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/language_en_ru.properties" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/language_uk_UA.properties">
       <provider editor-type-id="ResourceBundle" />
       <provider selected="true" editor-type-id="text-editor">
@@ -897,46 +867,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Booking.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="25" selection-start-line="25" selection-end-line="31" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Cabinet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Login.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/SignUp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -953,25 +883,72 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/jsps/header.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="79" lean-forward="true" selection-start-line="23" selection-start-column="79" selection-end-line="23" selection-end-column="79" />
+        <state relative-caret-position="374">
+          <caret line="22" column="79" selection-start-line="22" selection-start-column="79" selection-end-line="22" selection-end-column="79" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/MainServlet.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/logic/SessionHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="26" column="39" lean-forward="true" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
+        <state relative-caret-position="629">
+          <caret line="37" column="72" selection-start-line="37" selection-start-column="72" selection-end-line="37" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/logic/CheckSession.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Booking.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="51" selection-start-line="27" selection-start-column="51" selection-end-line="27" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Cabinet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="53" selection-start-line="25" selection-start-column="53" selection-end-line="25" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/Logout.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/MainServlet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
-          <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+          <caret line="24" column="48" lean-forward="true" selection-start-line="24" selection-end-line="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hotel/mariam/controller/SignUp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
