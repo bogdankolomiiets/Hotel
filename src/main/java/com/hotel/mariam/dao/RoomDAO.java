@@ -6,13 +6,14 @@ import java.util.Calendar;
 import java.util.List;
 
 public interface RoomDAO {
-    Room getByRoomId(int roomId);
-    List<Room> getByRoomType(RoomTypes roomTypes);
+    Room getRoomByNumber(int roomNumber);
+    List<Room> getRoomByType(RoomTypes roomTypes);
     boolean insertRoom(Room room);
     boolean updateRoom(Room room, int roomId);
-    boolean deleteRoom(int roomId);
-    boolean bookRoom(int roomId, Calendar roomStartDate, Calendar roomEndDate);
+    int updatePrice(double oldPrice, double newPrice);
+    boolean deleteRoom(int roomNumber);
+    boolean bookRoom(int roomNumber, Calendar roomStartDate, Calendar roomEndDate);
     List<Room> getAllRooms();
-    List<Room> getAvailableRooms(RoomTypes types, Calendar availableDate);
+    List<Room> getAvailableRooms(RoomTypes roomTypes, Calendar availableDate);
     List<Room> getAvailableRooms(Calendar availableDate);
 }

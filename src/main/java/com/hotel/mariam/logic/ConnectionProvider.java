@@ -1,7 +1,5 @@
 package com.hotel.mariam.logic;
 
-import com.mysql.jdbc.Driver;
-
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;

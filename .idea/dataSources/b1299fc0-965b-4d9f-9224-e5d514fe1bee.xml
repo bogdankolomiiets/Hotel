@@ -13,7 +13,7 @@
     <schema id="3" parent="1" name="mariam">
       <Current>1</Current>
       <Visible>1</Visible>
-      <Collation>utf8_bin</Collation>
+      <Collation>utf8mb4_unicode_ci</Collation>
     </schema>
     <schema id="4" parent="1" name="mysql">
       <Collation>utf8mb4_0900_ai_ci</Collation>
@@ -1115,47 +1115,45 @@
     <table id="280" parent="3" name="room">
       <Comment>Hotel rooms</Comment>
     </table>
-    <column id="281" parent="278" name="clientId">
+    <table id="281" parent="3" name="roomtype">
+      <Comment>Types of room</Comment>
+    </table>
+    <column id="282" parent="278" name="clientId">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="282" parent="278" name="clientName">
+    <column id="283" parent="278" name="clientName">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="283" parent="278" name="clientSurname">
+    <column id="284" parent="278" name="clientSurname">
       <Position>3</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="278" name="clientPhone">
+    <column id="285" parent="278" name="clientPhone">
       <Position>4</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="278" name="clientEmail">
+    <column id="286" parent="278" name="clientEmail">
       <Position>5</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="286" parent="278" name="clientPass">
+    <column id="287" parent="278" name="clientPass">
       <Position>6</Position>
       <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="287" parent="278" name="client_clientPhone_uindex">
-      <ColNames>clientPhone</ColNames>
-      <Unique>1</Unique>
-      <Type>btree</Type>
-    </index>
     <index id="288" parent="278" name="client_clientEmail_uindex">
       <ColNames>clientEmail</ColNames>
       <Unique>1</Unique>
@@ -1166,113 +1164,144 @@
       <ColNames>clientId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="290" parent="278" name="client_clientPhone_uindex">
-      <ColNames>clientPhone</ColNames>
-      <UnderlyingIndexName>client_clientPhone_uindex</UnderlyingIndexName>
-    </key>
-    <key id="291" parent="278" name="client_clientEmail_uindex">
+    <key id="290" parent="278" name="client_clientEmail_uindex">
       <ColNames>clientEmail</ColNames>
       <UnderlyingIndexName>client_clientEmail_uindex</UnderlyingIndexName>
     </key>
-    <column id="292" parent="279" name="hotelID">
+    <column id="291" parent="279" name="hotelID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="293" parent="279" name="hotelName">
+    <column id="292" parent="279" name="hotelName">
       <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="294" parent="279" name="hotelAddress">
+    <column id="293" parent="279" name="hotelAddress">
       <Position>3</Position>
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="295" parent="279" name="hotelPhone">
+    <column id="294" parent="279" name="hotelPhone">
       <Position>4</Position>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="296" parent="279" name="hotelCountOfFloors">
+    <column id="295" parent="279" name="hotelCountOfFloors">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="297" parent="279" name="hotelCountOfStars">
+    <column id="296" parent="279" name="hotelCountOfStars">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="298" parent="279" name="PRIMARY">
+    <key id="297" parent="279" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>hotelID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="299" parent="280" name="roomId">
+    <column id="298" parent="280" name="roomNumber">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="300" parent="280" name="roomType">
+    <column id="299" parent="280" name="roomTypeId">
       <Position>2</Position>
-      <DataType>varchar(20)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="301" parent="280" name="roomPrice">
+    <column id="300" parent="280" name="roomPrice">
       <Position>3</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>double|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="302" parent="280" name="roomBookingDate">
+    <column id="301" parent="280" name="roomBookingDate">
       <Position>4</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="303" parent="280" name="roomStartDate">
+    <column id="302" parent="280" name="roomStartDate">
       <Position>5</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="304" parent="280" name="roomEndDate">
+    <column id="303" parent="280" name="roomEndDate">
       <Position>6</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="305" parent="280" name="hotelID">
+    <column id="304" parent="280" name="hotelID">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="306" parent="280" name="clientID">
+    <column id="305" parent="280" name="clientID">
       <Position>8</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="307" parent="280" name="room_fk">
+    <index id="306" parent="280" name="room_roomNumber_uindex">
+      <ColNames>roomNumber</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <index id="307" parent="280" name="roomType_fk">
+      <ColNames>roomTypeId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="308" parent="280" name="room_fk">
       <ColNames>hotelID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="308" parent="280" name="PRIMARY">
+    <key id="309" parent="280" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>roomId</ColNames>
+      <ColNames>roomNumber</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="309" parent="280" name="room_fk">
+    <key id="310" parent="280" name="room_roomNumber_uindex">
+      <ColNames>roomNumber</ColNames>
+      <UnderlyingIndexName>room_roomNumber_uindex</UnderlyingIndexName>
+    </key>
+    <foreign-key id="311" parent="280" name="roomType_fk">
+      <ColNames>roomTypeId</ColNames>
+      <RefSchemaName>mariam</RefSchemaName>
+      <RefTableName>roomtype</RefTableName>
+      <RefColNames>roomTypeId</RefColNames>
+    </foreign-key>
+    <foreign-key id="312" parent="280" name="room_fk">
       <ColNames>hotelID</ColNames>
       <RefSchemaName>mariam</RefSchemaName>
       <RefTableName>hotel</RefTableName>
       <RefColNames>hotelID</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
+    <column id="313" parent="281" name="roomTypeId">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="314" parent="281" name="roomTypeName">
+      <Position>2</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="315" parent="281" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>roomTypeId</ColNames>
+      <Primary>1</Primary>
+    </key>
   </database-model>
 </dataSource>

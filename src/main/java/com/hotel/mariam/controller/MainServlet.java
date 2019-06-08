@@ -16,6 +16,8 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        SessionHelper.setCharacterEncoding(req, resp);
+
         req.setAttribute("hotel", mariamHotel);
 
         //if user changes localization - put info to cookie

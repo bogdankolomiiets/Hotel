@@ -6,6 +6,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
 public class SessionHelper {
@@ -47,5 +48,24 @@ public class SessionHelper {
         Cookie cookie = new Cookie("user", "valid");
         cookie.setMaxAge(60 * 60 * 24 * 7);
         resp.addCookie(cookie);
+    }
+
+    public static boolean checkClientValid(HttpServletRequest req){
+        Cookie[] cookies = req.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("user") && c.getValue().equals("valid")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void setCharacterEncoding(HttpServletRequest req, HttpServletResponse resp){
+        try {
+            req.setCharacterEncoding("UTF-8");
+            resp.setCharacterEncoding("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 }

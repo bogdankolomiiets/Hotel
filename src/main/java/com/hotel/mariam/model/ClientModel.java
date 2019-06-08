@@ -102,19 +102,15 @@ public class ClientModel implements ClientDAO {
     }
 
     @Override
-    public boolean insertClient(Client client) {
-        try {
+    public boolean insertClient(Client client) throws SQLException{
             String sqlInsert = "INSERT INTO client (clientName, clientSurname, clientPhone, clientEmail, clientPass) " +
                     "VALUES ('" + client.getClientName() + "', '" + client.getClientSurname() + "', '"
                     + client.getClientPhone() + "', '" + client.getClientEmail() + "', '" + client.getClientPass() + "')";
             Statement statement = connection.createStatement();
             int result = statement.executeUpdate(sqlInsert);
-            if (result == 1){
+            if (result == 1) {
                 return true;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return false;
     }
 

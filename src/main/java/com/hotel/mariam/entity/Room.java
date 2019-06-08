@@ -1,23 +1,30 @@
 package com.hotel.mariam.entity;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class Room {
-    private int roomId;
+    private int roomNumber;
     private RoomTypes roomType;
     private double roomPrice;
-    private Calendar roomBookingDate;
-    private Calendar roomStartDate;
-    private Calendar roomEndDate;
+    private Date roomBookingDate;
+    private Date roomStartDate;
+    private Date roomEndDate;
     private int hotelID;
     private int clientID;
 
     public Room() {
     }
 
-    public Room(int roomId, RoomTypes roomType, double roomPrice, Calendar roomBookingDate,
-                Calendar roomStartDate, Calendar roomEndDate, int hotelID, int clientID) {
-        this.roomId = roomId;
+    public Room(int roomNumber, RoomTypes roomType, double roomPrice, int hotelID) {
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.roomPrice = roomPrice;
+        this.hotelID = hotelID;
+    }
+
+    public Room(int roomNumber, RoomTypes roomType, double roomPrice, Date roomBookingDate,
+                Date roomStartDate, Date roomEndDate, int hotelID, int clientID) {
+        this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.roomPrice = roomPrice;
         this.roomBookingDate = roomBookingDate;
@@ -27,12 +34,12 @@ public class Room {
         this.clientID = clientID;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public int getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     public RoomTypes getRoomType() {
@@ -51,27 +58,27 @@ public class Room {
         this.roomPrice = roomPrice;
     }
 
-    public Calendar getRoomBookingDate() {
+    public Date getRoomBookingDate() {
         return roomBookingDate;
     }
 
-    public void setRoomBookingDate(Calendar roomBookingDate) {
+    public void setRoomBookingDate(Date roomBookingDate) {
         this.roomBookingDate = roomBookingDate;
     }
 
-    public Calendar getRoomStartDate() {
+    public Date getRoomStartDate() {
         return roomStartDate;
     }
 
-    public void setRoomStartDate(Calendar roomStartDate) {
+    public void setRoomStartDate(Date roomStartDate) {
         this.roomStartDate = roomStartDate;
     }
 
-    public Calendar getRoomEndDate() {
+    public Date getRoomEndDate() {
         return roomEndDate;
     }
 
-    public void setRoomEndDate(Calendar roomEndDate) {
+    public void setRoomEndDate(Date roomEndDate) {
         this.roomEndDate = roomEndDate;
     }
 
@@ -89,5 +96,19 @@ public class Room {
 
     public void setClientID(int clientID) {
         this.clientID = clientID;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "roomNumber=" + roomNumber +
+                ", roomType=" + roomType +
+                ", roomPrice=" + roomPrice +
+                ", roomBookingDate=" + roomBookingDate +
+                ", roomStartDate=" + roomStartDate +
+                ", roomEndDate=" + roomEndDate +
+                ", hotelID=" + hotelID +
+                ", clientID=" + clientID +
+                '}';
     }
 }

@@ -16,6 +16,8 @@ public class Cabinet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        SessionHelper.setCharacterEncoding(req, resp);
+
         Hotel mariamHotel = new HotelModel().getByHotelName("Mariam").get(0);
         req.setAttribute("hotel", mariamHotel);
 

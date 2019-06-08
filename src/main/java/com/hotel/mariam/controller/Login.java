@@ -17,6 +17,8 @@ public class Login extends HttpServlet {
     private RequestDispatcher dispatcher;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        SessionHelper.setCharacterEncoding(req, resp);
+
         Hotel mariamHotel = new HotelModel().getByHotelName("Mariam").get(0);
         req.setAttribute("hotel", mariamHotel);
 
@@ -30,11 +32,13 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        SessionHelper.setCharacterEncoding(req, resp);
+
         ClientModel model = new ClientModel();
         Client client;
         if ((client = model.getClient(req.getParameter("email"), req.getParameter("password"))) != null) {
             SessionHelper.setClientValid(req, resp);
-            resp.sendRedirect("/mariam");
+            resp.sendRedirect("/book");
         } else {
             req.setAttribute("userExists", "-1");
             doGet(req, resp);

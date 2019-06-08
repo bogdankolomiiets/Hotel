@@ -1,15 +1,12 @@
-.login-page {
-    width: 360px;
-    padding: 8% 0 0;
-    margin: auto;
-}
 .form {
     position: relative;
     z-index: 1;
-    background: #FFFFFF;
-    max-width: 360px;
-    margin: 0 auto 100px;
+    /*background: #FFFFFF;*/
+    max-width: 500px;
+    margin: 0 auto 200px;
     padding: 45px;
+    margin-top: 50px;
+    margin-bottom: 15%;
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -22,37 +19,38 @@
     margin: 0 0 15px;
     padding: 15px;
     box-sizing: border-box;
-    font-size: 14px;
+    font-size: 18px;
 }
 .form button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
-    background: #4CAF50;
+    background: #00aeef;
     width: 100%;
     border: 0;
     padding: 15px;
     color: #FFFFFF;
-    font-size: 14px;
+    font-size: 18px;
     -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
     cursor: pointer;
 }
 .form button:hover,.form button:active,.form button:focus {
-    background: #43A047;
+    background: #1b75bc;
 }
 .form .message {
     margin: 15px 0 0;
     color: #b3b3b3;
-    font-size: 12px;
+    font-size: 14px;
 }
 .form .message a {
-    color: #4CAF50;
+    color: #00aeef;
     text-decoration: none;
 }
 .form .register-form {
-    display: none;
+    display: flow-root;
 }
+
 .container {
     position: relative;
     z-index: 1;
@@ -77,7 +75,7 @@
 }
 .container .info span {
     color: #4d4d4d;
-    font-size: 12px;
+    font-size: 14px;
 }
 .container .info span a {
     color: #000000;
@@ -86,13 +84,30 @@
 .container .info span .fa {
     color: #EF3B3A;
 }
+
+.infoLabel {
+    display: grid;
+    text-align: center;
+    color: orangered;
+    font-size: 20px;
+    font-family: "Roboto", sans-serif;
+    padding-bottom: 10px;
+}
+
+.field:valid {
+    background: #00adee;
+}
+
+.field:invalid {
+    background: #ffcdd2;
+}
+
 body {
     background: #dddddd; /* fallback for old browsers */
-    background: -webkit-linear-gradient(right, #76b852, #4b2d2b);
-    background: -moz-linear-gradient(right, #76b852, #4b2d2b);
-    background: -o-linear-gradient(right, #76b852, #4b2d2b);
-    background: linear-gradient(to left, #76b852, #4b2d2b);
-    font-family: "Roboto", sans-serif;
+    background: -webkit-linear-gradient(right, #00aeef, saddlebrown);
+    background: -moz-linear-gradient(right, #00aeef, saddlebrown);
+    background: -o-linear-gradient(right, #00aeef, saddlebrown);
+    background: linear-gradient(to left, #00aeef, saddlebrown);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

@@ -13,18 +13,18 @@
 <jsp:include page="/jsps/header.jsp" />
 <body>
 <c:set var="exist" value="${userExists}"/>
-<c:if test="${exist == -1}">
-    <script type="text/javascript">
-        alert('<fmt:message key="login.incorrect"/>')
-    </script>
-</c:if>
+
 <div class="wrapper">
     <div class="content">
         <div class="login-page">
-            <div class="form" >
+            <div class="form">
                 <form autocomplete="off" class="login-form" method="post">
-                    <input type="text" autocomplete="off" name="email" placeholder="email"/>
-                    <input type="password" autocomplete="off" name="password" placeholder="<fmt:message key="login.pass"/>"/>
+                    <c:if test="${exist == -1}">
+                        <label class="infoLabel"><fmt:message key="login.incorrect"/></label>
+                        <label class="infoLabel"><fmt:message key="login.incorrect.pleace"/></label>
+                    </c:if>
+                    <input class="field" type="email" name="email" required placeholder="email"/>
+                    <input class="field" type="password" name="password" required placeholder="<fmt:message key="login.pass"/>"/>
                     <button type="submit"><fmt:message key="login.loginButton"/></button>
                     <p class="message"><fmt:message key="login.not.registered"/><a href="/signup"><fmt:message key="login.create.account"/></a></p>
                 </form>

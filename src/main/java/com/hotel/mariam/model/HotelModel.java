@@ -3,12 +3,14 @@ package com.hotel.mariam.model;
 import com.hotel.mariam.dao.HotelDAO;
 import com.hotel.mariam.entity.Hotel;
 import com.hotel.mariam.logic.ConnectionProvider;
+import com.hotel.mariam.logic.Constants;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HotelModel implements HotelDAO {
-    public Connection connection = new ConnectionProvider().getConnection();
+    private static Connection connection = new ConnectionProvider().getConnection();
 
     public Hotel getByHotelId(int hotelId) {
         Hotel hotel = new Hotel();
@@ -103,6 +105,33 @@ public class HotelModel implements HotelDAO {
             e.printStackTrace();
         }
         return hotelList;
+    }
+
+    public static int getHotelID(String hotelName) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM hotel WHERE hotelName = '" + hotelName + "'");
+            if (rs.next()){
+                return rs.getInt("hotelID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static int getHotelID(String hotelName, String hotelAddress) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM hotel WHERE hotelName = '" + hotelName
+                    + "' AND hotelAddress LIKE '" + hotelAddress + "'");
+            if (rs.next()){
+                return rs.getInt("hotelID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     private Hotel extractHotelFromResultSet(ResultSet rs) {
