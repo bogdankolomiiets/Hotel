@@ -15,10 +15,9 @@
 <c:set var="exist" value="${userExists}"/>
 
 <div class="wrapper">
-    <div class="content">z
-        <div class="login-page">
+    <div class="content">
             <div class="form">
-                <form autocomplete="off" class="login-form" method="post">
+                <form name="login" autocomplete="off" method="post">
                     <c:if test="${exist == -1}">
                         <label class="infoLabel"><fmt:message key="login.incorrect"/></label>
                         <label class="infoLabel"><fmt:message key="login.incorrect.pleace"/></label>
@@ -29,7 +28,6 @@
                     <p class="message"><fmt:message key="login.not.registered"/><a href="/signup"><fmt:message key="login.create.account"/></a></p>
                 </form>
             </div>
-        </div>
     </div>
 </div>
 <jsp:include page="/jsps/footer.jsp" />

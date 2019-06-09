@@ -238,15 +238,6 @@ public class RoomModel implements RoomDAO {
     }
 
     public static void main(String[] args) {
-        RoomModel model = new RoomModel();
-        System.out.println(model.insertRoom(new Room(41, RoomType.KING, RoomLevel.DELUXE, 20000, null, null, null, HotelModel.getHotelID("Mariam"), 15)));
-
-//        System.out.println(model.updateRoom(new Room(1, RoomType.KING, RoomLevel.DELUXE, 200, new Date(), new Date(), new Date(), HotelModel.getHotelID("Mariam"), 15), 1));
-//        List<Room> list = model.getAvailableRooms(RoomType.SINGLE, Calendar.getInstance());
-//        for (Room r : list){
-//            System.out.println(r);
-//        }
-
 /*
         System.out.println(model.insertRoom(new Room(1, RoomType.SINGLE, RoomLevel.ECONOMY, 200, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(2, RoomType.SINGLE, RoomLevel.ECONOMY, 200, HotelModel.getHotelID("Mariam"))));
