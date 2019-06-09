@@ -10,13 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HotelModel implements HotelDAO {
-    private static Connection connection = new ConnectionProvider().getConnection();
 
     public Hotel getByHotelId(int hotelId) {
         Hotel hotel = new Hotel();
         String sqlGetByHotelId = "SELECT * FROM hotel WHERE hotelID  = " + hotelId;
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             ResultSet rs = statement.executeQuery(sqlGetByHotelId);
             hotel = extractHotelFromResultSet(rs);
         } catch (SQLException e) {
@@ -29,7 +28,7 @@ public class HotelModel implements HotelDAO {
         List<Hotel> hotelList = new ArrayList<>();
         String sqlGetByHotelName = "SELECT * FROM hotel WHERE hotelName LIKE '" + hotelName + "'";
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             ResultSet rs = statement.executeQuery(sqlGetByHotelName);
             Hotel hotel;
             while ((hotel = extractHotelFromResultSet(rs)) != null){
@@ -47,7 +46,7 @@ public class HotelModel implements HotelDAO {
                     "hotelCountOfFloors, hotelCountOfStars) " +
                     "VALUES ('" + hotel.getName() + "', '" + hotel.getAddress() + "', '" + hotel.getPhone()
                     + "', '" + hotel.getCountOfFloors() + "', '" + hotel.getCountOfStars() + "')";
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             int result = statement.executeUpdate(insertCommand);
             if (result == 1){
                 return true;
@@ -61,7 +60,7 @@ public class HotelModel implements HotelDAO {
     public boolean updateHotel(Hotel hotel, String hotelName) {
 
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE hotel SET hotelName=?, hotelAddress=?," +
+            PreparedStatement ps = new ConnectionProvider().getConnection().prepareStatement("UPDATE hotel SET hotelName=?, hotelAddress=?," +
                     "hotelPhone=?, hotelCountOfFloors=?, hotelCountOfStars=? WHERE hotelName =?");
             ps.setString(1, hotel.getName());
             ps.setString(2, hotel.getAddress());
@@ -81,7 +80,7 @@ public class HotelModel implements HotelDAO {
 
     public boolean deleteHotel(String hotelName) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             int result = statement.executeUpdate("DELETE FROM hotel WHERE hotelName LIKE '" + hotelName + "'");
             if (result == 1) {
                 return true;
@@ -95,7 +94,7 @@ public class HotelModel implements HotelDAO {
     public List<Hotel> getAll() {
         List<Hotel> hotelList = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM hotel");
             Hotel hotel;
             while ((hotel = extractHotelFromResultSet(rs)) != null) {
@@ -109,7 +108,7 @@ public class HotelModel implements HotelDAO {
 
     public static int getHotelID(String hotelName) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM hotel WHERE hotelName = '" + hotelName + "'");
             if (rs.next()){
                 return rs.getInt("hotelID");
@@ -122,7 +121,7 @@ public class HotelModel implements HotelDAO {
 
     public static int getHotelID(String hotelName, String hotelAddress) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM hotel WHERE hotelName = '" + hotelName
                     + "' AND hotelAddress LIKE '" + hotelAddress + "'");
             if (rs.next()){

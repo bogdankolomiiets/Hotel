@@ -10,12 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientModel implements ClientDAO {
-    private Connection connection = new ConnectionProvider().getConnection();
 
     @Override
     public Client getClientByEmail(String clientEmail) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM client WHERE clientEmail LIKE '" + clientEmail + "'");
             return extractClientFromResultSet(rs);
         } catch (SQLException e) {
@@ -27,7 +26,7 @@ public class ClientModel implements ClientDAO {
     @Override
     public Client getClient(String clientEmail, String pass) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM client WHERE clientEmail = '" + clientEmail + "'");
             Client client = extractClientFromResultSet(rs);
             if (client != null) {
@@ -44,7 +43,7 @@ public class ClientModel implements ClientDAO {
     @Override
     public Client getClientByPhone(String clientPhone) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM client WHERE clientPhone LIKE '" + clientPhone + "'");
             return extractClientFromResultSet(rs);
         } catch (SQLException e) {
@@ -57,7 +56,7 @@ public class ClientModel implements ClientDAO {
     public List<Client> getClientByName(String clientName) {
         List<Client> clientList = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM client WHERE clientName LIKE '" + clientName + "'");
             Client client;
             while ((client = extractClientFromResultSet(rs)) != null){
@@ -73,7 +72,7 @@ public class ClientModel implements ClientDAO {
     public List<Client> getClientBySurname(String clientSurname) {
         List<Client> clientList = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM client WHERE clientSurname LIKE '" + clientSurname + "'");
             Client client;
             while ((client = extractClientFromResultSet(rs)) != null){
@@ -89,7 +88,7 @@ public class ClientModel implements ClientDAO {
     public List<Client> getAllClients() {
         List<Client> clientList = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM client");
             Client client;
             while ((client = extractClientFromResultSet(rs)) != null){
@@ -106,7 +105,7 @@ public class ClientModel implements ClientDAO {
             String sqlInsert = "INSERT INTO client (clientName, clientSurname, clientPhone, clientEmail, clientPass) " +
                     "VALUES ('" + client.getClientName() + "', '" + client.getClientSurname() + "', '"
                     + client.getClientPhone() + "', '" + client.getClientEmail() + "', '" + client.getClientPass() + "')";
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             int result = statement.executeUpdate(sqlInsert);
             if (result == 1) {
                 return true;
@@ -117,7 +116,7 @@ public class ClientModel implements ClientDAO {
     @Override
     public boolean updateClientByPhone(Client client, String phone) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE client SET clientName=?, clientSurname=?," +
+            PreparedStatement statement = new ConnectionProvider().getConnection().prepareStatement("UPDATE client SET clientName=?, clientSurname=?," +
                     "clientPhone=?, clientEmail=?, clientPass=? WHERE clientPhone=?");
             statement.setString(1, client.getClientName());
             statement.setString(2, client.getClientSurname());
@@ -138,7 +137,7 @@ public class ClientModel implements ClientDAO {
     @Override
     public boolean updateClientByEmail(Client client, String email) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE client SET clientName=?, clientSurname=?," +
+            PreparedStatement statement = new ConnectionProvider().getConnection().prepareStatement("UPDATE client SET clientName=?, clientSurname=?," +
                     "clientPhone=?, clientEmail=?, clientPass=? WHERE clientEmail=?");
             statement.setString(1, client.getClientName());
             statement.setString(2, client.getClientSurname());
@@ -159,7 +158,7 @@ public class ClientModel implements ClientDAO {
     @Override
     public boolean deleteClientByPhone(String clientPhone) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             int result = statement.executeUpdate("DELETE FROM client WHERE clientPhone = '" + clientPhone + "'");
             if (result == 1){
                 return true;
@@ -173,7 +172,7 @@ public class ClientModel implements ClientDAO {
     @Override
     public boolean deleteClientByEmail(String clientEmail) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
             int result = statement.executeUpdate("DELETE FROM client WHERE clientEmail = '" + clientEmail + "'");
             if (result == 1){
                 return true;

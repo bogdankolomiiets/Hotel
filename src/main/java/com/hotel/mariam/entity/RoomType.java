@@ -1,12 +1,11 @@
 package com.hotel.mariam.entity;
 
-public enum RoomTypes {
+public enum RoomType {
     SINGLE(1),
     DOUBLE(2),
     TRIPLE(3),
     QUAD(4),
-    QUEEN(5),
-    KING(6);
+    KING(5);
 
     int intValue;
 
@@ -14,7 +13,7 @@ public enum RoomTypes {
         return intValue;
     }
 
-    RoomTypes(int intValue) {
+    RoomType(int intValue) {
         this.intValue = intValue;
     }
 }

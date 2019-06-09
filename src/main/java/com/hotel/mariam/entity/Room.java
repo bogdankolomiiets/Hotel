@@ -4,7 +4,8 @@ import java.util.Date;
 
 public class Room {
     private int roomNumber;
-    private RoomTypes roomType;
+    private RoomType roomType;
+    private RoomLevel roomLevel;
     private double roomPrice;
     private Date roomBookingDate;
     private Date roomStartDate;
@@ -15,17 +16,19 @@ public class Room {
     public Room() {
     }
 
-    public Room(int roomNumber, RoomTypes roomType, double roomPrice, int hotelID) {
+    public Room(int roomNumber, RoomType roomType, RoomLevel roomLevel, double roomPrice, int hotelID) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
+        this.roomLevel = roomLevel;
         this.roomPrice = roomPrice;
         this.hotelID = hotelID;
     }
 
-    public Room(int roomNumber, RoomTypes roomType, double roomPrice, Date roomBookingDate,
+    public Room(int roomNumber, RoomType roomType, RoomLevel roomLevel, double roomPrice, Date roomBookingDate,
                 Date roomStartDate, Date roomEndDate, int hotelID, int clientID) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
+        this.roomLevel = roomLevel;
         this.roomPrice = roomPrice;
         this.roomBookingDate = roomBookingDate;
         this.roomStartDate = roomStartDate;
@@ -42,12 +45,20 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public RoomTypes getRoomType() {
+    public RoomType getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(RoomTypes roomType) {
+    public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
+    }
+
+    public RoomLevel getRoomLevel() {
+        return roomLevel;
+    }
+
+    public void setRoomLevel(RoomLevel roomLevel) {
+        this.roomLevel = roomLevel;
     }
 
     public double getRoomPrice() {
@@ -103,6 +114,7 @@ public class Room {
         return "Room{" +
                 "roomNumber=" + roomNumber +
                 ", roomType=" + roomType +
+                ", roomLevel=" + roomLevel +
                 ", roomPrice=" + roomPrice +
                 ", roomBookingDate=" + roomBookingDate +
                 ", roomStartDate=" + roomStartDate +
