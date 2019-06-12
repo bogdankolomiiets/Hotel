@@ -1,5 +1,6 @@
 package com.hotel.mariam.logic;
 
+import com.hotel.mariam.entity.Client;
 import com.hotel.mariam.entity.RoomLevel;
 import com.hotel.mariam.entity.RoomType;
 
@@ -8,7 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class SessionHelper {
+    private static int maxAgeValue = 60 * 60 * 24 * 7;
 
     public static void setNewLocalizationToCookie(HttpServletRequest req, HttpServletResponse resp){
         if (req.getParameter("language") != null) {
@@ -52,7 +56,7 @@ public class SessionHelper {
 
     public static void setClientValid(HttpServletRequest req, HttpServletResponse resp){
         Cookie cookie = new Cookie("user", "valid");
-        cookie.setMaxAge(60 * 60 * 24 * 7);
+        cookie.setMaxAge(maxAgeValue);
         resp.addCookie(cookie);
     }
 
@@ -73,5 +77,11 @@ public class SessionHelper {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void seClientEmail(Client client, HttpServletResponse resp) {
+        Cookie cookie = new Cookie("clientEmail", client.getClientEmail());
+        cookie.setMaxAge(maxAgeValue);
+        resp.addCookie(cookie);
     }
 }

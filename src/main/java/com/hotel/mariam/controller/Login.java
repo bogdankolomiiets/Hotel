@@ -38,6 +38,7 @@ public class Login extends HttpServlet {
         Client client;
         if ((client = model.getClient(req.getParameter("email"), req.getParameter("password"))) != null) {
             SessionHelper.setClientValid(req, resp);
+            SessionHelper.seClientEmail(client, resp);
             resp.sendRedirect("/book");
         } else {
             req.setAttribute("userExists", "-1");

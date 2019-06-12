@@ -2,6 +2,8 @@ package com.hotel.mariam.entity;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.Serializable;
+
 public class Client {
     private int clientId;
     private String clientName;

@@ -3,7 +3,6 @@ package com.hotel.mariam.model;
 import com.hotel.mariam.dao.HotelDAO;
 import com.hotel.mariam.entity.Hotel;
 import com.hotel.mariam.logic.ConnectionProvider;
-import com.hotel.mariam.logic.Constants;
 
 import java.sql.*;
 import java.util.ArrayList;
