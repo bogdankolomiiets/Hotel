@@ -8,10 +8,8 @@ import com.hotel.mariam.logic.ConnectionProvider;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
 
 public class RoomModel implements RoomDAO {
 
@@ -41,6 +39,34 @@ public class RoomModel implements RoomDAO {
             e.printStackTrace();
         }
         return roomList;
+    }
+
+    public static List<RoomType> getRoomTypes() {
+        List<RoomType> types = new ArrayList<>();
+        try {
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
+            ResultSet rs = statement.executeQuery("SELECT distinct roomTypeId FROM room");
+            while (rs.next()) {
+                types.add(RoomModel.getRoomTypeFromIntValue(rs.getInt("roomTypeId")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return types;
+    }
+
+    public static List<RoomLevel> getRoomLevelsByType(RoomType roomType) {
+        List<RoomLevel> levels = new ArrayList<>();
+        try {
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
+            ResultSet rs = statement.executeQuery("SELECT distinct roomLevelId FROM room WHERE roomTypeId = '" + roomType.getIntValue() + "'");
+            while (rs.next()) {
+                levels.add(RoomModel.getRoomLevelFromIntValue(rs.getInt("roomLevelId")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return levels;
     }
 
     @Override
@@ -207,7 +233,7 @@ public class RoomModel implements RoomDAO {
         return null;
     }
 
-    private RoomType getRoomTypeFromIntValue(int intRoomType){
+    private static RoomType getRoomTypeFromIntValue(int intRoomType){
         for (RoomType r : RoomType.values()){
             if (r.getIntValue() == intRoomType){
                 return r;
@@ -216,7 +242,7 @@ public class RoomModel implements RoomDAO {
         return null;
     }
 
-    private RoomLevel getRoomLevelFromIntValue(int intRoomLevel){
+    private static RoomLevel getRoomLevelFromIntValue(int intRoomLevel){
         for (RoomLevel l : RoomLevel.values()){
             if (l.getIntValue() == intRoomLevel){
                 return l;
@@ -236,9 +262,9 @@ public class RoomModel implements RoomDAO {
             return java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(date));
         } else return java.sql.Date.valueOf("1900-01-01");
     }
-
-    public static void main(String[] args) {
 /*
+    public static void main(String[] args) {
+        RoomModel model = new RoomModel();
         System.out.println(model.insertRoom(new Room(1, RoomType.SINGLE, RoomLevel.ECONOMY, 200, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(2, RoomType.SINGLE, RoomLevel.ECONOMY, 200, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(3, RoomType.SINGLE, RoomLevel.STANDARD, 350, HotelModel.getHotelID("Mariam"))));
@@ -251,17 +277,16 @@ public class RoomModel implements RoomDAO {
         System.out.println(model.insertRoom(new Room(10, RoomType.DOUBLE, RoomLevel.IMPROVED, 600, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(11, RoomType.DOUBLE, RoomLevel.IMPROVED, 600, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(12, RoomType.DOUBLE, RoomLevel.IMPROVED, 600, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(13, RoomType.TRIPLE, RoomLevel.STANDARD, 650, HotelModel.getHotelID("Mariam"))));
+        System.out.println(model.insertRoom(new Room(13, RoomType.TRIPLE, RoomLevel.ECONOMY, 650, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(14, RoomType.TRIPLE, RoomLevel.STANDARD, 650, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(15, RoomType.TRIPLE, RoomLevel.STANDARD, 650, HotelModel.getHotelID("Mariam"))));
+        System.out.println(model.insertRoom(new Room(15, RoomType.TRIPLE, RoomLevel.IMPROVED, 650, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(16, RoomType.QUAD, RoomLevel.ECONOMY, 700, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(17, RoomType.QUAD, RoomLevel.ECONOMY, 700, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(18, RoomType.QUAD, RoomLevel.STANDARD, 750, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(19, RoomType.QUAD, RoomLevel.STANDARD, 750, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(20, RoomType.QUAD, RoomLevel.STANDARD, 750, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(26, RoomType.KING, RoomLevel.DELUXE, 1000, HotelModel.getHotelID("Mariam"))));
+        System.out.println(model.insertRoom(new Room(20, RoomType.QUAD, RoomLevel.IMPROVED, 750, HotelModel.getHotelID("Mariam"))));
+        System.out.println(model.insertRoom(new Room(26, RoomType.KING, RoomLevel.IMPROVED, 1000, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(27, RoomType.KING, RoomLevel.DELUXE, 1000, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(28, RoomType.KING, RoomLevel.DELUXE, 1000, HotelModel.getHotelID("Mariam"))));
-        */
-    }
+    }*/
 }

@@ -20,10 +20,9 @@ public class Booking extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SessionHelper.setCharacterEncoding(req, resp);
-
         Hotel mariamHotel = new HotelModel().getByHotelName("Mariam").get(0);
         req.setAttribute("hotel", mariamHotel);
-        req.setAttribute("types", RoomType.values());
+        req.setAttribute("typesFromServer", RoomModel.getRoomTypes());
 
         //if user changes localization - put info to cookie
         SessionHelper.setNewLocalizationToCookie(req, resp);
@@ -39,6 +38,14 @@ public class Booking extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        System.out.println(req.getParameter("submitViaButton"));
+        String typeFromJSP = req.getParameter("selectedType");
+        if (req.getParameter("submitViaButton").equals("0")){
+            req.setAttribute("previousType", typeFromJSP);
+            req.setAttribute("levelsFromServer", RoomModel.getRoomLevelsByType(RoomType.valueOf(typeFromJSP)));
+            doGet(req, resp);
+        } else {
+            resp.sendRedirect("/cabinet");
+        }
     }
 }

@@ -91,6 +91,15 @@
     padding: 10px;
 }
 
+.radioLabel {
+    display: inline-table;
+    text-align: center;
+    color: goldenrod;
+    font-size: 20px;
+    font-family: "Roboto", sans-serif;
+    padding: 10px;
+}
+
 .field:valid {
     background: #00adee;
 }

@@ -1,5 +1,5 @@
-/.idea/
-/target/
-.git/
+.idea
+target
+.git
 *.plantuml
 *.java

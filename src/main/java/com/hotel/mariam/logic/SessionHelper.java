@@ -1,5 +1,8 @@
 package com.hotel.mariam.logic;
 
+import com.hotel.mariam.entity.RoomLevel;
+import com.hotel.mariam.entity.RoomType;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -7,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class SessionHelper {
 
@@ -60,7 +66,7 @@ public class SessionHelper {
         return false;
     }
 
-    public static void setCharacterEncoding(HttpServletRequest req, HttpServletResponse resp){
+    public static void setCharacterEncoding(HttpServletRequest req, HttpServletResponse resp) {
         try {
             req.setCharacterEncoding("UTF-8");
             resp.setCharacterEncoding("UTF-8");
