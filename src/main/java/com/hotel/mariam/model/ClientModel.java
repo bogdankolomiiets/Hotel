@@ -2,9 +2,9 @@ package com.hotel.mariam.model;
 
 import com.hotel.mariam.dao.ClientDAO;
 import com.hotel.mariam.entity.Client;
+import com.hotel.mariam.entity.ClientRole;
 import com.hotel.mariam.logic.ConnectionProvider;
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,9 +102,9 @@ public class ClientModel implements ClientDAO {
 
     @Override
     public boolean insertClient(Client client) throws SQLException{
-            String sqlInsert = "INSERT INTO client (clientName, clientSurname, clientPhone, clientEmail, clientPass) " +
+            String sqlInsert = "INSERT INTO client (clientName, clientSurname, clientPhone, clientEmail, clientPass, clientRole) " +
                     "VALUES ('" + client.getClientName() + "', '" + client.getClientSurname() + "', '"
-                    + client.getClientPhone() + "', '" + client.getClientEmail() + "', '" + client.getClientPass() + "')";
+                    + client.getClientPhone() + "', '" + client.getClientEmail() + "', '" + client.getClientPass() + "', '" + client.getClientRole().getIntValue() + "')";
             Statement statement = new ConnectionProvider().getConnection().createStatement();
             int result = statement.executeUpdate(sqlInsert);
             if (result == 1) {
@@ -117,13 +117,14 @@ public class ClientModel implements ClientDAO {
     public boolean updateClientByPhone(Client client, String phone) {
         try {
             PreparedStatement statement = new ConnectionProvider().getConnection().prepareStatement("UPDATE client SET clientName=?, clientSurname=?," +
-                    "clientPhone=?, clientEmail=?, clientPass=? WHERE clientPhone=?");
+                    "clientPhone=?, clientEmail=?, clientPass=?, clientRole=? WHERE clientPhone=?");
             statement.setString(1, client.getClientName());
             statement.setString(2, client.getClientSurname());
             statement.setString(3, client.getClientPhone());
             statement.setString(4, client.getClientEmail());
             statement.setString(5, client.getClientPass());
-            statement.setString(6, phone);
+            statement.setInt(6, client.getClientRole().getIntValue());
+            statement.setString(7, phone);
             int result = statement.executeUpdate();
             if (result == 1){
                 return true;
@@ -138,13 +139,14 @@ public class ClientModel implements ClientDAO {
     public boolean updateClientByEmail(Client client, String email) {
         try {
             PreparedStatement statement = new ConnectionProvider().getConnection().prepareStatement("UPDATE client SET clientName=?, clientSurname=?," +
-                    "clientPhone=?, clientEmail=?, clientPass=? WHERE clientEmail=?");
+                    "clientPhone=?, clientEmail=?, clientPass=?, clientRole=? WHERE clientEmail=?");
             statement.setString(1, client.getClientName());
             statement.setString(2, client.getClientSurname());
             statement.setString(3, client.getClientPhone());
             statement.setString(4, client.getClientEmail());
             statement.setString(5, client.getClientPass());
-            statement.setString(6, email);
+            statement.setInt(6, client.getClientRole().getIntValue());
+            statement.setString(7, email);
             int result = statement.executeUpdate();
             if (result == 1){
                 return true;
@@ -194,9 +196,19 @@ public class ClientModel implements ClientDAO {
                 client.setClientPhone(resultSet.getString("clientPhone"));
                 client.setClientEmail(resultSet.getString("clientEmail"));
                 client.setClientPass(resultSet.getString("clientPass"));
+                client.setClientRole(ClientModel.getClientRoleFromIntValue(resultSet.getInt("clientRole")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } return client;
+    }
+
+    private static ClientRole getClientRoleFromIntValue(int intClientRole){
+        for (ClientRole r : ClientRole.values()){
+            if (r.getIntValue() == intClientRole){
+                return r;
+            }
+        }
+        return null;
     }
 }

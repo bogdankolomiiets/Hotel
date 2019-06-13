@@ -4,7 +4,6 @@ import com.hotel.mariam.entity.*;
 import com.hotel.mariam.logic.SessionHelper;
 import com.hotel.mariam.logic.RoomQueryQueue;
 import com.hotel.mariam.model.ClientModel;
-import com.hotel.mariam.model.HotelModel;
 import com.hotel.mariam.model.RoomModel;
 import org.apache.log4j.Logger;
 import javax.servlet.RequestDispatcher;
@@ -24,13 +23,10 @@ public class Booking extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SessionHelper.setCharacterEncoding(req, resp);
-        Hotel mariamHotel = new HotelModel().getByHotelName("Mariam").get(0);
-        req.setAttribute("hotel", mariamHotel);
         req.setAttribute("typesFromServer", RoomModel.getRoomTypes());
-
-        //if user changes localization - put info to cookie
-        SessionHelper.setNewLocalizationToCookie(req, resp);
+//
+//        //if user changes localization - put info to cookie
+//        SessionHelper.setNewLocalizationToCookie(req, resp);
 
         //if user logged in - than book.jsp else login.jsp
         if (!SessionHelper.checkClientValid(req)){
@@ -50,14 +46,7 @@ public class Booking extends HttpServlet {
             doGet(req, resp);
         } else {
             try {
-                String clientEmail = "";
-                Cookie[] cookies = req.getCookies();
-                for (Cookie c: cookies){
-                    if (c.getName().equals("clientEmail")) {
-                        clientEmail = c.getValue();
-                        break;
-                    }
-                }
+                String clientEmail = SessionHelper.getClientEmailFromCookie(req);
 
                 RoomQueryQueue.addQueryToList(new RoomQuery(
                         RoomType.valueOf(req.getParameter("selectedType")),
@@ -65,7 +54,7 @@ public class Booking extends HttpServlet {
                         Calendar.getInstance().getTime(),
                         new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("StartDate")),
                         new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("EndDate")),
-                        new ClientModel().getClientByEmail(clientEmail)));
+                        SessionHelper.getClientEmailFromCookie(req)));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

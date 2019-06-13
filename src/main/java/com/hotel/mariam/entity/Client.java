@@ -2,8 +2,6 @@ package com.hotel.mariam.entity;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.io.Serializable;
-
 public class Client {
     private int clientId;
     private String clientName;
@@ -11,16 +9,18 @@ public class Client {
     private String clientPhone;
     private String clientEmail;
     private String clientPass;
+    private ClientRole clientRole;
 
     public Client() {
     }
 
-    public Client(String clientName, String clientSurname, String clientPhone, String clientEmail, String clientPass) {
+    public Client(String clientName, String clientSurname, String clientPhone, String clientEmail, String clientPass, ClientRole clientRole) {
         this.clientName = clientName;
         this.clientSurname = clientSurname;
         this.clientPhone = clientPhone;
         this.clientEmail = clientEmail;
         this.clientPass = BCrypt.hashpw(clientPass, BCrypt.gensalt());
+        this.clientRole = clientRole;
     }
 
     public int getClientId() {
@@ -71,6 +71,14 @@ public class Client {
         this.clientPass = clientPass;
     }
 
+    public ClientRole getClientRole() {
+        return clientRole;
+    }
+
+    public void setClientRole(ClientRole clientRole) {
+        this.clientRole = clientRole;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
@@ -79,6 +87,8 @@ public class Client {
                 ", clientSurname='" + clientSurname + '\'' +
                 ", clientPhone='" + clientPhone + '\'' +
                 ", clientEmail='" + clientEmail + '\'' +
+                ", clientPass='" + clientPass + '\'' +
+                ", clientRole=" + clientRole +
                 '}';
     }
 }

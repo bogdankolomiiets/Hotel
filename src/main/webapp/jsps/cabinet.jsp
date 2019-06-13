@@ -13,7 +13,13 @@
 
 <body>
 <div class="wrapper">
-    <div class="content"></div>
+    <div>
+        <label class="infoLabel"></label>
+        <c:forEach var="query" items="${clientQueries}">
+            <c:out value="${query}"/>
+        </c:forEach>
+    </div>
+
 </div>
 <jsp:include page="/jsps/footer.jsp" />
 </body>

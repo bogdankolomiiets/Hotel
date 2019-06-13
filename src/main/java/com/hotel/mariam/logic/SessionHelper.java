@@ -3,6 +3,8 @@ package com.hotel.mariam.logic;
 import com.hotel.mariam.entity.Client;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,7 +64,7 @@ public class SessionHelper {
         return false;
     }
 
-    public static void setCharacterEncoding(HttpServletRequest req, HttpServletResponse resp) {
+    public static void setCharacterEncoding(ServletRequest req, ServletResponse resp) {
         try {
             req.setCharacterEncoding("UTF-8");
             resp.setCharacterEncoding("UTF-8");
@@ -71,9 +73,23 @@ public class SessionHelper {
         }
     }
 
-    public static void seClientEmail(Client client, HttpServletResponse resp) {
+    public static void setClientEmail(Client client, HttpServletResponse resp) {
         Cookie cookie = new Cookie("clientEmail", client.getClientEmail());
         cookie.setMaxAge(maxAgeValue);
         resp.addCookie(cookie);
+    }
+
+    public static String getClientEmailFromCookie(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null){
+            String clientEmail;
+            for (Cookie c: cookies){
+                if (c.getName().equals("clientEmail")) {
+                    clientEmail = c.getValue();
+                    return clientEmail;
+                }
+            }
+        }
+        return "";
     }
 }
