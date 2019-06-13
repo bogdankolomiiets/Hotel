@@ -36,7 +36,7 @@
             <input class="field" type="email" required name="clientEmail" placeholder="<fmp:message key="signup.clientEmail"/>"/>
             <input class="field" type="password" name="clientPass" required placeholder="<fmp:message key="login.pass"/>"/>
             <button type="submit" name="submitButton"><fmt:message key="signup.createButton"/></button>
-            <p class="message"><fmt:message key="signup.registered"/><a href="/login"><fmt:message key="signup.login"/></a></p>
+            <p class="message"><fmt:message key="signup.registered"/><a href="login"><fmt:message key="signup.login"/></a></p>
         </form>
     </div>
 </div>

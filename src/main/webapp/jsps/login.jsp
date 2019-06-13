@@ -25,7 +25,7 @@
                     <input class="field" type="email" name="email" required placeholder="email"/>
                     <input class="field" type="password" name="password" required placeholder="<fmt:message key="login.pass"/>"/>
                     <button type="submit"><fmt:message key="login.loginButton"/></button>
-                    <p class="message"><fmt:message key="login.not.registered"/><a href="/signup"><fmt:message key="login.create.account"/></a></p>
+                    <p class="message"><fmt:message key="login.not.registered"/><a href="signup"><fmt:message key="login.create.account"/></a></p>
                 </form>
             </div>
     </div>

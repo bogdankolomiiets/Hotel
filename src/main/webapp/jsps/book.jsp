@@ -53,7 +53,6 @@
         </div>
     </div>
 </div>
-<c:catch var="ex"/>
 <jsp:include page="/jsps/footer.jsp" />
 </body>
 </html>

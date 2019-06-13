@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="/styles/footer.css" type="text/css">
+<link rel="stylesheet" href="styles/footer.css" type="text/css">
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="${pageContext.response.locale}"/>
 <fmt:setBundle basename="language"/>
@@ -11,7 +11,7 @@
         <li>
             <fmt:message key="footer.hotelInfo.stars"/>
             <c:forEach var="i" begin="1" end="${hotel.getCountOfStars()}" step="1">
-                <img src="/images/star4.png" alt="stars" width="40" height="40"/>
+                <img src="images/star4.png" alt="stars" width="40" height="40"/>
             </c:forEach>
         </li>
     </ul>

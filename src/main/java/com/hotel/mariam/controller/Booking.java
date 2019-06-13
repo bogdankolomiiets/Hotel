@@ -34,7 +34,7 @@ public class Booking extends HttpServlet {
 
         //if user logged in - than book.jsp else login.jsp
         if (!SessionHelper.checkClientValid(req)){
-            resp.sendRedirect("/login");
+            resp.sendRedirect("login");
         } else {
             dispatcher = req.getRequestDispatcher("/jsps/book.jsp");
             SessionHelper.forward(req, resp, dispatcher);
@@ -69,7 +69,7 @@ public class Booking extends HttpServlet {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            resp.sendRedirect("/cabinet");
+            resp.sendRedirect("cabinet");
         }
     }
 }
