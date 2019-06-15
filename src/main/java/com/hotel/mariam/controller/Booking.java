@@ -2,13 +2,11 @@ package com.hotel.mariam.controller;
 
 import com.hotel.mariam.entity.*;
 import com.hotel.mariam.logic.SessionHelper;
-import com.hotel.mariam.logic.RoomQueryQueue;
-import com.hotel.mariam.model.ClientModel;
+import com.hotel.mariam.model.QueryModel;
 import com.hotel.mariam.model.RoomModel;
 import org.apache.log4j.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,9 +22,6 @@ public class Booking extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("typesFromServer", RoomModel.getRoomTypes());
-//
-//        //if user changes localization - put info to cookie
-//        SessionHelper.setNewLocalizationToCookie(req, resp);
 
         //if user logged in - than book.jsp else login.jsp
         if (!SessionHelper.checkClientValid(req)){
@@ -46,15 +41,14 @@ public class Booking extends HttpServlet {
             doGet(req, resp);
         } else {
             try {
-                String clientEmail = SessionHelper.getClientEmailFromCookie(req);
-
-                RoomQueryQueue.addQueryToList(new RoomQuery(
+                new QueryModel().insertQuery(new Query(
+                        0,
                         RoomType.valueOf(req.getParameter("selectedType")),
                         RoomLevel.valueOf(req.getParameter("selectedLevel")),
                         Calendar.getInstance().getTime(),
                         new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("StartDate")),
                         new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("EndDate")),
-                        SessionHelper.getClientEmailFromCookie(req)));
+                        SessionHelper.getClientEmailFromCookie(req), QueryStatus.PROCESSING));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

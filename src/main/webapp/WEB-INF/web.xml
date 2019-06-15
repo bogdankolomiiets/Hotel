@@ -6,7 +6,12 @@
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
-    
+
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/jsps/error.jsp</location>
+    </error-page>
+
     <filter>
         <filter-name>commonFilter</filter-name>
         <filter-class>com.hotel.mariam.controller.CommonFilter</filter-class>
@@ -23,6 +28,14 @@
         <filter-name>localizationFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <filter>
+        <filter-name>error</filter-name>
+        <filter-class>com.hotel.mariam.controller.ExceptionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>error</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     
     <servlet>
         <servlet-name>home</servlet-name>
@@ -33,12 +46,12 @@
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>admin</servlet-name>
-        <servlet-class>com.hotel.mariam.controller.Administrator</servlet-class>
+        <servlet-name>queries</servlet-name>
+        <servlet-class>com.hotel.mariam.controller.QueriesManager</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>admin</servlet-name>
-        <url-pattern>/adminPage</url-pattern>
+        <servlet-name>queries</servlet-name>
+        <url-pattern>/queriesPage</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>booking</servlet-name>

@@ -1,0 +1,20 @@
+/*body {*/
+/*    background: saddlebrown;*/
+/*    margin: 15%;*/
+/*    padding: 0;*/
+/*    text-align: center;*/
+/*}*/
+
+.errorDiv {
+    margin: 0 auto;
+    text-align: center;
+    width: 800px;
+    font-size: 50px;
+    font-family: "Roboto", sans-serif;
+    color: silver;
+}
+
+.container{
+    margin-top: 10%;
+    height: 50%;
+}

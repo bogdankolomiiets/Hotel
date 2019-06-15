@@ -229,11 +229,28 @@ public class RoomModel implements RoomDAO {
     }
 
     @Override
+    public List<Room> getAvailableRooms(RoomType roomType, RoomLevel roomLevel, Date roomStartDate) {
+        List<Room> roomList = new ArrayList<>();
+        try {
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM room WHERE roomTypeId = '" + roomType.getIntValue() +
+                    "' AND roomLevelId = '" + roomLevel.getIntValue() + "' AND roomEndDate <= '" + toSQLDate(roomStartDate) + "' OR roomEndDate IS NULL");
+            Room room;
+            while ((room = extractHotelFromResultSet(rs)) != null){
+                roomList.add(room);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roomList;
+    }
+
+    @Override
     public List<Room> getAvailableRooms(Calendar availableDate) {
         return null;
     }
 
-    private static RoomType getRoomTypeFromIntValue(int intRoomType){
+    public static RoomType getRoomTypeFromIntValue(int intRoomType){
         for (RoomType r : RoomType.values()){
             if (r.getIntValue() == intRoomType){
                 return r;
@@ -242,7 +259,7 @@ public class RoomModel implements RoomDAO {
         return null;
     }
 
-    private static RoomLevel getRoomLevelFromIntValue(int intRoomLevel){
+    public static RoomLevel getRoomLevelFromIntValue(int intRoomLevel){
         for (RoomLevel l : RoomLevel.values()){
             if (l.getIntValue() == intRoomLevel){
                 return l;
@@ -257,7 +274,7 @@ public class RoomModel implements RoomDAO {
         } else return Timestamp.valueOf("1900-01-01 00:00:00");
     }
 
-    private java.sql.Date toSQLDate(Date date) {
+    public static java.sql.Date toSQLDate(Date date) {
         if (date != null) {
             return java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(date));
         } else return java.sql.Date.valueOf("1900-01-01");

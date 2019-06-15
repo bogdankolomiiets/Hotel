@@ -1,6 +1,8 @@
 package com.hotel.mariam.logic;
 
 import com.hotel.mariam.entity.Client;
+import com.hotel.mariam.model.ClientModel;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -79,11 +81,11 @@ public class SessionHelper {
         resp.addCookie(cookie);
     }
 
-    public static String getClientEmailFromCookie(HttpServletRequest request){
+    public static String getClientEmailFromCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        if (cookies != null){
+        if (cookies != null) {
             String clientEmail;
-            for (Cookie c: cookies){
+            for (Cookie c : cookies) {
                 if (c.getName().equals("clientEmail")) {
                     clientEmail = c.getValue();
                     return clientEmail;

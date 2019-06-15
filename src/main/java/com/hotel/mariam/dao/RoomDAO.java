@@ -5,6 +5,7 @@ import com.hotel.mariam.entity.RoomType;
 import com.hotel.mariam.entity.Room;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public interface RoomDAO {
@@ -18,5 +19,6 @@ public interface RoomDAO {
     boolean bookRoom(int roomNumber, Calendar roomStartDate, Calendar roomEndDate);
     List<Room> getAllRooms();
     List<Room> getAvailableRooms(RoomType roomType, Calendar availableDate);
+    List<Room> getAvailableRooms(RoomType roomType, RoomLevel roomLevel, Date roomStartDate);
     List<Room> getAvailableRooms(Calendar availableDate);
 }

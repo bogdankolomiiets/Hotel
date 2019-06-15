@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
             SessionHelper.setClientValid(req, resp);
             SessionHelper.setClientEmail(client, resp);
             //if the user role is higher than 0 redirect to adminPage
-            resp.sendRedirect(client.getClientRole().getIntValue() > 0 ? "adminPage" : "book");
+            resp.sendRedirect(client.getClientRole().getIntValue() > 0 ? "queriesPage" : "book");
         } else {
             req.setAttribute("userExists", "-1");
             doGet(req, resp);
