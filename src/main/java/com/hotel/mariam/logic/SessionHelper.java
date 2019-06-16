@@ -1,8 +1,6 @@
 package com.hotel.mariam.logic;
 
 import com.hotel.mariam.entity.Client;
-import com.hotel.mariam.model.ClientModel;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;

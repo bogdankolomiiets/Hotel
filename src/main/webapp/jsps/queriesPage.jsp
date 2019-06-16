@@ -7,12 +7,18 @@
 <link rel="stylesheet" href="styles/cabinet.css" type="text/css">
 <html>
 <head>
-    <title><c:out value="${hotel.getName()} - admin page"/></title>
+    <title><c:out value="${hotel.getName()} - queries page"/></title>
 </head>
 <jsp:include page="/jsps/header.jsp" />
 <body>
 <div class="wrapper">
     <div class="content">
+        <form class="infoLabel">
+            <c:if test="${clientQueries.size() == 0}">
+                <label><fmt:message key="book.admin.query.none"/></label>
+            </c:if>
+        </form>
+
         <c:forEach var="query" items="${clientQueries}">
             <form name="queryForm" method="post" class="infoLabel">
                 <label><fmt:message key="book.reservationText"/></label>

@@ -1,6 +1,7 @@
 package com.hotel.mariam.controller;
 
 import com.hotel.mariam.entity.Query;
+import com.hotel.mariam.model.ClientModel;
 import com.hotel.mariam.model.QueryModel;
 import com.hotel.mariam.logic.SessionHelper;
 import org.apache.log4j.Logger;
@@ -20,8 +21,13 @@ public class Cabinet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("clientQueries", new QueryModel().getClientsQueries(SessionHelper.getClientEmailFromCookie(req)));
 
-        dispatcher = req.getRequestDispatcher("/jsps/cabinet.jsp");
-        SessionHelper.forward(req, resp, dispatcher);
+        if (new ClientModel().getClientByEmail(SessionHelper.getClientEmailFromCookie(req)).getClientRole().getIntValue() > 0){
+            resp.sendRedirect("queriesPage");
+        } else {
+            dispatcher = req.getRequestDispatcher("/jsps/cabinet.jsp");
+            SessionHelper.forward(req, resp, dispatcher);
+        }
+
     }
 
     @Override

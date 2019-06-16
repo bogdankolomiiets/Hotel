@@ -13,6 +13,11 @@
 <body>
 <div class="wrapper">
     <div class="content">
+        <form class="infoLabel">
+            <c:if test="${clientQueries.size() == 0}">
+                <label><fmt:message key="book.user.query.none"/></label>
+            </c:if>
+        </form>
         <c:forEach var="query" items="${clientQueries}">
             <form name="queryForm" method="post" class="infoLabel">
                 <label><fmt:message key="book.query.waitStart"/></label>

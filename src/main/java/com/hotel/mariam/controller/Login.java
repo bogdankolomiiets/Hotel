@@ -14,9 +14,6 @@ public class Login extends HttpServlet {
     private RequestDispatcher dispatcher;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-/*
-        //if user changes localization - put info to cookie
-        SessionHelper.setNewLocalizationToCookie(req, resp);*/
 
         dispatcher = req.getRequestDispatcher("jsps/login.jsp");
         SessionHelper.forward(req, resp, dispatcher);
