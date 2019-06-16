@@ -97,4 +97,13 @@
         <servlet-name>cabinet</servlet-name>
         <url-pattern>/cabinet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>prices</servlet-name>
+        <servlet-class>com.hotel.mariam.controller.Prices</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>prices</servlet-name>
+        <url-pattern>/prices</url-pattern>
+    </servlet-mapping>
 </web-app>

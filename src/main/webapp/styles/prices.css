@@ -1,0 +1,32 @@
+.centerDiv{
+    text-align: center;
+}
+
+.infoDiv {
+    color: black;
+    font-size: 40px;
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+}
+
+.priceDiv {
+    display: inline;
+    color: red;
+    font-size: 50px;
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+}
+
+form {
+    width: 300px;
+    display: inline-grid;
+    line-height: 150px;
+    margin: 40px;
+    background: #efdcd5;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 10px;
+}
+
+form:hover {
+    background: #bcaaa4;
+}

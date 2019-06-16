@@ -1,5 +1,6 @@
 package com.hotel.mariam.entity;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 
 public class Room {
@@ -63,6 +64,11 @@ public class Room {
 
     public double getRoomPrice() {
         return roomPrice;
+    }
+
+    public String getStringRoomPrice() {
+        DecimalFormat format = new DecimalFormat("0.#");
+        return format.format(roomPrice);
     }
 
     public void setRoomPrice(double roomPrice) {

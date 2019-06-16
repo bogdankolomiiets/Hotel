@@ -9,6 +9,7 @@
         <ul class="topmenu">
             <li><a href="home"><img src="images/Letter_M.png" alt="logo img" width="250" height="132"></a></li>
             <li><a href="home"><fmt:message key="header.menu.home"/></a></li>
+            <li><a href="prices"><fmt:message key="header.menu.prices"/></a></li>
             <li><a href="book"><fmt:message key="header.menu.book"/></a></li>
             <li><a href="#"><fmt:message key="header.menu.language"/></a>
                 <ul class="submenu">

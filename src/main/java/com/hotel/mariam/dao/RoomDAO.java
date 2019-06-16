@@ -20,5 +20,5 @@ public interface RoomDAO {
     List<Room> getAllRooms();
     List<Room> getAvailableRooms(RoomType roomType, Calendar availableDate);
     List<Room> getAvailableRooms(RoomType roomType, RoomLevel roomLevel, Date roomStartDate);
-    List<Room> getAvailableRooms(Calendar availableDate);
+    List<Room> getDistinctRooms();
 }

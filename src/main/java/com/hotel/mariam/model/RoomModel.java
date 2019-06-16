@@ -158,7 +158,6 @@ public class RoomModel implements RoomDAO {
 
     @Override
     public boolean bookRoom(int roomNumber, Calendar roomStartDate, Calendar roomEndDate) {
-
         return false;
     }
 
@@ -246,8 +245,35 @@ public class RoomModel implements RoomDAO {
     }
 
     @Override
-    public List<Room> getAvailableRooms(Calendar availableDate) {
-        return null;
+    public List<Room> getDistinctRooms() {
+        List<Room> roomList = new ArrayList<>();
+        try {
+            Statement statement = new ConnectionProvider().getConnection().createStatement();
+            ResultSet rs = statement.executeQuery("SELECT distinct roomTypeId,\n" +
+                    "       roomLevelId, roomPrice FROM room");
+            Room room;
+            while ((room = extractShortHotelFromResultSet(rs)) != null) {
+                roomList.add(room);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roomList;
+    }
+
+    private Room extractShortHotelFromResultSet(ResultSet rs) {
+        Room room = null;
+        try {
+            if (rs.next()) {
+                room = new Room();
+                room.setRoomType(getRoomTypeFromIntValue(rs.getInt("roomTypeId")));
+                room.setRoomLevel(getRoomLevelFromIntValue(rs.getInt("roomLevelId")));
+                room.setRoomPrice(rs.getDouble("roomPrice"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return room;
     }
 
     public static RoomType getRoomTypeFromIntValue(int intRoomType){
