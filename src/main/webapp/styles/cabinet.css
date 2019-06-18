@@ -44,3 +44,8 @@ button:hover, button:active, button:focus {
     display: flow;
     height: 70%;
 }
+
+hr {
+    height: 5px;
+    background: #00adee;
+}

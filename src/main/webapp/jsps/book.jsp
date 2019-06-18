@@ -42,6 +42,7 @@
                 </div>
                 <label class="radioLabel"><fmt:message key="room.StartDate"/></label><input type="date" name="StartDate" required>
                 <label class="radioLabel"><fmt:message key="room.EndDate"/></label><input type="date" name="EndDate" required>
+                <input type="hidden" name="amount" value="2000.25">
                 <input type="hidden" id="submitViaButton" name="submitViaButton" value="0">
                 <button type="submit" onclick="{
                     if (document.forms['bookingForm'].checkValidity()){

@@ -1,5 +1,6 @@
 package com.hotel.mariam.controller;
 
+import com.hotel.mariam.dao.ClientDAO;
 import com.hotel.mariam.entity.Client;
 import com.hotel.mariam.logic.SessionHelper;
 import com.hotel.mariam.model.ClientModel;
@@ -12,6 +13,8 @@ import java.io.IOException;
 
 public class Login extends HttpServlet {
     private RequestDispatcher dispatcher;
+    private ClientDAO clientDAO = new ClientModel();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -23,9 +26,8 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ClientModel model = new ClientModel();
         Client client;
-        if ((client = model.getClient(req.getParameter("email"), req.getParameter("password"))) != null) {
+        if ((client = clientDAO.getClient(req.getParameter("email"), req.getParameter("password"))) != null) {
             SessionHelper.setClientValid(req, resp);
             SessionHelper.setClientEmail(client, resp);
             //if the user role is higher than 0 redirect to adminPage

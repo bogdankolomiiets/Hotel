@@ -13,9 +13,6 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        //if user changes localization - put info to cookie
-//         SessionHelper.setNewLocalizationToCookie(req, resp);
-
         dispatcher = req.getRequestDispatcher("/jsps/index.jsp");
         SessionHelper.forward(req, resp, dispatcher);
     }

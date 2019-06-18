@@ -37,15 +37,33 @@
                 <label><fmt:message key="room.BookingDate"/>${query.getRoomBookingDate()}</label>
                 <label><fmt:message key="room.StartDate"/>${query.getRoomStartDate()}</label>
                 <label><fmt:message key="room.EndDate"/>${query.getRoomEndDate()}</label>
+                <label><fmt:message key="room.Amount"/>${query.getQueryAmount()}</label>
                 <label>
                     <c:if test="${query.getQueryStatus() == 1}"><fmt:message key="book.query.processing"/></c:if>
-                    <c:if test="${query.getQueryStatus() == 2}"><fmt:message key="book.query.refuse"/></c:if>
+                    <c:if test="${query.getQueryStatus() == 2}"><fmt:message key="book.query.deny"/></c:if>
                     <c:if test="${query.getQueryStatus() == 3}"><fmt:message key="book.query.success"/></c:if>
                 </label>
                 <input type="hidden" name="queryId" value="${query.getQueryId()}">
                 <button name="cancel" type="submit"><fmt:message key="book.query.cancel"/></button>
             </form>
         </c:forEach>
+        <hr>
+        <c:forEach var="payment" items="${payments}">
+        <form name="paymentForm" method="post" class="infoLabel">
+            <label><fmt:message key="payment.account" /></label>
+            <label>
+                ${clientName}
+                ${clientSurname}
+                <fmt:message key="room.Amount"/> ${payment.getStringPaymentAmount()}
+                <fmt:message key="bank.name"/> "${bank.getBankFullName()}"
+                <fmt:message key="bank.bankIdentifierCode"/> "${bank.getBankIdentifierCode()}"
+                <fmt:message key="bank.bankTaxpayerIdentificationNumber"/> "${bank.getBankTaxpayerIdentificationNumber()}"
+                <fmt:message key="bank.bankCardNumber"/> "${bank.getBankCardNumber()}"
+            </label>
+            <input type="hidden" name="payment" value="redirect">
+            <button name="pay" type="submit"><fmt:message key="payment.pay" /></button>
+        </form>
+    </c:forEach>
     </div>
 </div>
 <jsp:include page="/jsps/footer.jsp" />

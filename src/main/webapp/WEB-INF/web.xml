@@ -53,6 +53,16 @@
         <servlet-name>queries</servlet-name>
         <url-pattern>/queriesPage</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>process</servlet-name>
+        <servlet-class>com.hotel.mariam.controller.Process</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>process</servlet-name>
+        <url-pattern>/process</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>booking</servlet-name>
         <servlet-class>com.hotel.mariam.controller.Booking</servlet-class>

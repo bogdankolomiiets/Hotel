@@ -1,5 +1,9 @@
 package com.hotel.mariam.controller;
 
+import com.hotel.mariam.constants.QueryStatus;
+import com.hotel.mariam.constants.RoomLevel;
+import com.hotel.mariam.constants.RoomType;
+import com.hotel.mariam.dao.QueryDAO;
 import com.hotel.mariam.entity.*;
 import com.hotel.mariam.logic.SessionHelper;
 import com.hotel.mariam.model.QueryModel;
@@ -17,7 +21,8 @@ import java.util.Calendar;
 
 public class Booking extends HttpServlet {
     private static Logger LOGGER = Logger.getLogger(Booking.class);
-    RequestDispatcher dispatcher;
+    private RequestDispatcher dispatcher;
+    private QueryDAO queryDAO = new QueryModel();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,13 +46,14 @@ public class Booking extends HttpServlet {
             doGet(req, resp);
         } else {
             try {
-                new QueryModel().insertQuery(new Query(
+                queryDAO.insertQuery(new Query(
                         0,
                         RoomType.valueOf(req.getParameter("selectedType")),
                         RoomLevel.valueOf(req.getParameter("selectedLevel")),
                         Calendar.getInstance().getTime(),
                         new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("StartDate")),
                         new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("EndDate")),
+                        Double.parseDouble(req.getParameter("amount")),
                         SessionHelper.getClientEmailFromCookie(req), QueryStatus.PROCESSING));
             } catch (ParseException e) {
                 e.printStackTrace();

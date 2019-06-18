@@ -1,5 +1,8 @@
 package com.hotel.mariam.entity;
 
+import com.hotel.mariam.constants.RoomLevel;
+import com.hotel.mariam.constants.RoomType;
+
 import java.text.DecimalFormat;
 import java.util.Date;
 
@@ -67,8 +70,7 @@ public class Room {
     }
 
     public String getStringRoomPrice() {
-        DecimalFormat format = new DecimalFormat("0.#");
-        return format.format(roomPrice);
+        return new DecimalFormat("0.#").format(roomPrice);
     }
 
     public void setRoomPrice(double roomPrice) {

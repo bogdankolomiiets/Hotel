@@ -1,5 +1,6 @@
 package com.hotel.mariam.entity;
 
+import com.hotel.mariam.constants.ClientRole;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class Client {

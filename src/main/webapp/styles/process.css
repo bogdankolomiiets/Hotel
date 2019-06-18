@@ -1,0 +1,12 @@
+hr {
+    height: 5px;
+    background: #00adee;
+}
+
+.alert {
+    background: #ff7961;
+}
+
+.alert:hover {
+    background: #f44336;
+}

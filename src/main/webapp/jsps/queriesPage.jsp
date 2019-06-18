@@ -18,7 +18,6 @@
                 <label><fmt:message key="book.admin.query.none"/></label>
             </c:if>
         </form>
-
         <c:forEach var="query" items="${clientQueries}">
             <form name="queryForm" method="post" class="infoLabel">
                 <label><fmt:message key="book.reservationText"/></label>
@@ -38,19 +37,12 @@
                 <label><fmt:message key="room.BookingDate"/>${query.getRoomBookingDate()}</label>
                 <label><fmt:message key="room.StartDate"/>${query.getRoomStartDate()}</label>
                 <label><fmt:message key="room.EndDate"/>${query.getRoomEndDate()}</label>
+                <label><fmt:message key="room.Amount"/>${query.getQueryAmount()}</label>
                 <input type="hidden" name="queryId" value="${query.getQueryId()}">
                 <input type="hidden" name="queryRoomType" value="${query.getRoomType().getIntValue()}">
                 <input type="hidden" name="queryRoomLevel" value="${query.getRoomLevel().getIntValue()}">
                 <input type="hidden" name="queryStartDate" value="${query.getRoomStartDate()}">
                 <button name="process" type="submit"><fmt:message key="book.query.process"/></button>
-            </form>
-        </c:forEach>
-        <c:forEach var="availableRoom" items="${availableRooms}">
-            <form name="availableRoomForm" method="post" class="infoLabel">
-                <label><fmt:message key="room.availableText"/></label>
-                <c:out value="${availableRoom}"/>
-                <input type="hidden" name="room" value="${availableRoom.getRoomNumber()}">
-                <button name="assign" type="submit"><fmt:message key="book.query.assign"/></button>
             </form>
         </c:forEach>
     </div>
