@@ -4,6 +4,7 @@ import com.hotel.mariam.constants.QueryStatus;
 import com.hotel.mariam.constants.RoomLevel;
 import com.hotel.mariam.constants.RoomType;
 import com.hotel.mariam.dao.QueryDAO;
+import com.hotel.mariam.dao.RoomDAO;
 import com.hotel.mariam.entity.*;
 import com.hotel.mariam.logic.SessionHelper;
 import com.hotel.mariam.model.QueryModel;
@@ -23,11 +24,11 @@ public class Booking extends HttpServlet {
     private static Logger LOGGER = Logger.getLogger(Booking.class);
     private RequestDispatcher dispatcher;
     private QueryDAO queryDAO = new QueryModel();
+    private RoomDAO roomDAO = new RoomModel();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("typesFromServer", RoomModel.getRoomTypes());
-
         //if user logged in - than book.jsp else login.jsp
         if (!SessionHelper.checkClientValid(req)){
             resp.sendRedirect("login");
@@ -40,9 +41,25 @@ public class Booking extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String typeFromJSP = req.getParameter("selectedType");
+        String levelFromJSP = req.getParameter("selectedLevel");
         if (req.getParameter("submitViaButton").equals("0")){
+            req.setAttribute("previousStartDate", req.getParameter("StartDate"));
+            req.setAttribute("previousEndDate", req.getParameter("EndDate"));
             req.setAttribute("previousType", typeFromJSP);
             req.setAttribute("levelsFromServer", RoomModel.getRoomLevelsByType(RoomType.valueOf(typeFromJSP)));
+
+
+            if (req.getParameter("selectedLevel") != null) {
+                req.setAttribute("previousLevel", levelFromJSP);
+                RoomType type = RoomType.valueOf(typeFromJSP);
+                RoomLevel level = RoomLevel.valueOf(req.getParameter("selectedLevel"));
+                double roomPrice = roomDAO.getRoomPrice(type, level);
+
+                if (Integer.parseInt(req.getParameter("countOfDays")) > 0){
+                    req.setAttribute("amount", (Integer.parseInt(req.getParameter("countOfDays")) * roomPrice));
+                }
+                req.setAttribute("roomPrice", roomPrice);
+            }
             doGet(req, resp);
         } else {
             try {

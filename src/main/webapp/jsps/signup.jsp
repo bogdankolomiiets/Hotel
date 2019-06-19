@@ -15,7 +15,6 @@
 <jsp:include page="/jsps/header.jsp" />
 
 <body>
-<div class="wrapper">
     <div class="form">
         <form class="register-form" method="post" name="signUpForm">
             <label class="infoLabel">
@@ -39,7 +38,6 @@
             <p class="message"><fmt:message key="signup.registered"/><a href="login"><fmt:message key="signup.login"/></a></p>
         </form>
     </div>
-</div>
 <jsp:include page="/jsps/footer.jsp" />
 </body>
 </html>

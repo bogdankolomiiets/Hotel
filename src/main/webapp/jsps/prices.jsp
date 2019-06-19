@@ -12,7 +12,6 @@
 </head>
 <jsp:include page="/jsps/header.jsp" />
 <body>
-<div class="wrapper">
     <div class="centerDiv">
         <c:forEach var="room" items="${roomList}">
             <form>
@@ -35,7 +34,6 @@
             </form>
         </c:forEach>
     </div>
-</div>
-<jsp:include page="/jsps/footer.jsp" />
+    <jsp:include page="/jsps/footer.jsp" />
 </body>
 </html>

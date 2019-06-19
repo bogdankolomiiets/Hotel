@@ -5,11 +5,6 @@ body {
     padding: 0;
 }
 
-.wrapper {
-    display: contents;
-    height: 80%;
-}
-
 .right {
     float:right;
 }

@@ -12,8 +12,7 @@
 </head>
 <jsp:include page="/jsps/header.jsp" />
 <body>
-<div class="wrapper">
-    <div class="content">
+<div style="height: 80%">
             <form name="queryForm" class="infoLabel">
                 <label><fmt:message key="book.reservationText"/></label>
                 <label>
@@ -71,7 +70,6 @@
                 <button name="assign" type="submit"><fmt:message key="book.query.assign"/></button>
             </form>
         </c:forEach>
-    </div>
 </div>
 <jsp:include page="/jsps/footer.jsp" />
 </body>

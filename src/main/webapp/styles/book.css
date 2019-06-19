@@ -14,7 +14,6 @@
     font-family: "Roboto", sans-serif;
     outline: 0;
     background: #f2f2f2;
-    /*width: 100%;*/
     border: 0;
     margin: 0 0 15px;
     padding: 15px;
@@ -48,40 +47,6 @@
     text-decoration: none;
 }
 
-.container {
-    position: relative;
-    z-index: 1;
-    max-width: 300px;
-    margin: 0 auto;
-}
-.container:before, .container:after {
-    content: "";
-    display: inline;
-    clear: both;
-}
-.container .info {
-    margin: 50px auto;
-    text-align: center;
-}
-.container .info h1 {
-    margin: 0 0 15px;
-    padding: 0;
-    font-size: 36px;
-    font-weight: 300;
-    color: #1a1a1a;
-}
-.container .info span {
-    color: #4d4d4d;
-    font-size: 14px;
-}
-.container .info span a {
-    color: #000000;
-    text-decoration: none;
-}
-.container .info span .fa {
-    color: #EF3B3A;
-}
-
 .infoLabel {
     display: inline-table;
     text-align: center;
@@ -107,6 +72,15 @@
 
 .field:invalid {
     background: #ffcdd2;
+}
+
+.amount {
+    display: grid;
+    color: #c4001d;
+    font-size: 40px;
+    font-family: "Roboto", sans-serif;
+    padding: 10px;
+    text-transform: uppercase;
 }
 
 body {

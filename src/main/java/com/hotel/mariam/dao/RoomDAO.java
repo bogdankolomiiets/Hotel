@@ -19,7 +19,7 @@ public interface RoomDAO {
     boolean deleteRoom(int roomNumber);
     boolean bookRoom(int roomNumber, Date roomBookingDate, Date roomStartDate, Date roomEndDate, double amount, String clientEmail) throws SQLException;
     List<Room> getAllRooms();
-    List<Room> getAvailableRooms(RoomType roomType, Calendar availableDate);
+    double getRoomPrice(RoomType roomType, RoomLevel roomLevel);
     List<Room> getAvailableRooms(RoomType roomType, RoomLevel roomLevel, Date roomStartDate);
     List<Room> getDistinctRooms();
 }

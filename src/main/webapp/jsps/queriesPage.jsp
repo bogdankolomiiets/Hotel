@@ -11,8 +11,7 @@
 </head>
 <jsp:include page="/jsps/header.jsp" />
 <body>
-<div class="wrapper">
-    <div class="content">
+<div style="height: 80%">
         <form class="infoLabel">
             <c:if test="${clientQueries.size() == 0}">
                 <label><fmt:message key="book.admin.query.none"/></label>
@@ -45,7 +44,6 @@
                 <button name="process" type="submit"><fmt:message key="book.query.process"/></button>
             </form>
         </c:forEach>
-    </div>
 </div>
 <jsp:include page="/jsps/footer.jsp" />
 </body>
