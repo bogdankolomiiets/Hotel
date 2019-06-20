@@ -37,9 +37,10 @@
                 <label class="radioLabel"><fmt:message key="room.EndDate"/></label>
                 <input type="date" value="${previousEndDate}" name="EndDate" id="EndDate" oninput="calculateCountOfDays(), this.form.submit()" required>
                 <input type="hidden" id="countOfDays" name="countOfDays" value="0">
-                <label class="amount"><c:if test="${roomPrice > 0}">
+                <label class="highlightPrices"><c:if test="${roomPrice > 0}">
                     <fmt:message key="room.price"/> ${roomPrice}
                     <c:if test="${amount > 0}">
+                        <input type="hidden" name="amount" value="${amount}">
                         <fmt:message key="room.Amount"/> ${amount}
                     </c:if>
                 </c:if>
