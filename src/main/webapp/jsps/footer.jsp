@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="styles/footer.css" type="text/css">
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet" href="styles/footer.css" type="text/css">
 <fmt:setLocale value="${pageContext.response.locale}"/>
 <fmt:setBundle basename="language"/>
 <div class="footer">

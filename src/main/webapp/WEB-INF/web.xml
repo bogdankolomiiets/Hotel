@@ -116,4 +116,15 @@
         <servlet-name>prices</servlet-name>
         <url-pattern>/prices</url-pattern>
     </servlet-mapping>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>http://mariam.com/jstl/rtt</taglib-uri>
+            <taglib-location>/tlds/roomType.tld</taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>http://mariam.com/jstl/rlt</taglib-uri>
+            <taglib-location>/tlds/roomLevel.tld</taglib-location>
+        </taglib>
+    </jsp-config>
 </web-app>

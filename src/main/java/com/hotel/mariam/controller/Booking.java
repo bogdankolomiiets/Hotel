@@ -10,6 +10,7 @@ import com.hotel.mariam.logic.SessionHelper;
 import com.hotel.mariam.model.QueryModel;
 import com.hotel.mariam.model.RoomModel;
 import org.apache.log4j.Logger;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

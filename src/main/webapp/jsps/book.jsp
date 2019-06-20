@@ -1,8 +1,8 @@
-<%@ page import="java.awt.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="rtt" uri="http://mariam.com/jstl/rtt" %>
+<%@ taglib prefix="rlt" uri="http://mariam.com/jstl/rlt" %>
 <fmt:setLocale value="${pageContext.response.locale}"/>
 <fmt:setBundle basename="language"/>
 <link rel="stylesheet" href="styles/index.css" type="text/css">
@@ -20,11 +20,7 @@
                     <c:forEach var="type" items="${typesFromServer}">
                         <label class="radioLabel"><input name="selectedType" value="${type}" required
                             type="radio" <c:if test="${previousType == type}">checked="checked"</c:if> onclick="calculateCountOfDays(), this.form.submit()">
-                            <c:if test="${type.getIntValue() == 1}"><fmt:message key="roomType.single"/></c:if>
-                            <c:if test="${type.getIntValue() == 2}"><fmt:message key="roomType.double"/></c:if>
-                            <c:if test="${type.getIntValue() == 3}"><fmt:message key="roomType.triple"/></c:if>
-                            <c:if test="${type.getIntValue() == 4}"><fmt:message key="roomType.quad"/></c:if>
-                            <c:if test="${type.getIntValue() == 5}"><fmt:message key="roomType.king"/></c:if>
+                            <rtt:roomType intType="${type.getIntValue()}" />
                         </label>
                     </c:forEach>
                 </div>
@@ -32,10 +28,7 @@
                     <c:forEach var="level" items="${levelsFromServer}">
                         <label class="radioLabel"><input name="selectedLevel" value="${level}" onclick="calculateCountOfDays(), this.form.submit()" type="radio"
                                                          <c:if test="${previousLevel == level}">checked="checked"</c:if> required>
-                            <c:if test="${level.getIntValue() == 1}"><fmt:message key="roomLevel.economy"/></c:if>
-                            <c:if test="${level.getIntValue() == 2}"><fmt:message key="roomLevel.standard"/></c:if>
-                            <c:if test="${level.getIntValue() == 3}"><fmt:message key="roomLevel.improved"/></c:if>
-                            <c:if test="${level.getIntValue() == 4}"><fmt:message key="roomLevel.deluxe"/></c:if>
+                            <rlt:roomLevel intType="${level.getIntValue()}"/>
                         </label>
                     </c:forEach>
                 </div>

@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `mariam` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `mariam`;
 -- MySQL dump 10.13  Distrib 8.0.16, for Win64 (x86_64)
 --
 -- Host: localhost    Database: mariam
@@ -16,6 +14,35 @@ USE `mariam`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `bank`
+--
+
+DROP TABLE IF EXISTS `bank`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `bank` (
+  `bankId` int(11) NOT NULL AUTO_INCREMENT,
+  `bankFullName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bankShortName` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bankIdentifierCode` int(11) DEFAULT NULL,
+  `bankTaxpayerIdentificationNumber` int(11) DEFAULT NULL,
+  `bankCardNumber` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`bankId`),
+  UNIQUE KEY `bank_bankIdentifierCode_uindex` (`bankIdentifierCode`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bank`
+--
+
+LOCK TABLES `bank` WRITE;
+/*!40000 ALTER TABLE `bank` DISABLE KEYS */;
+INSERT INTO `bank` VALUES (1,'my own super bank \"STAR-bank\"','bank STAR-bank',1234567890,1234566541,'0111101011110100');
+/*!40000 ALTER TABLE `bank` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `client`
@@ -102,6 +129,37 @@ INSERT INTO `hotel` VALUES (24,'Mariam','Vinnytsia, vul. Peremogu 25','+38068311
 UNLOCK TABLES;
 
 --
+-- Table structure for table `payment`
+--
+
+DROP TABLE IF EXISTS `payment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `payment` (
+  `paymentId` int(11) NOT NULL AUTO_INCREMENT,
+  `paymentBankId` int(11) NOT NULL,
+  `paymentAmount` double NOT NULL,
+  `paymentClientId` int(11) NOT NULL,
+  `paymentStatus` int(11) DEFAULT NULL,
+  PRIMARY KEY (`paymentId`),
+  KEY `payment_client_fk` (`paymentClientId`),
+  KEY `payment_bank_fk` (`paymentBankId`),
+  CONSTRAINT `payment_bank_fk` FOREIGN KEY (`paymentBankId`) REFERENCES `bank` (`bankId`),
+  CONSTRAINT `payment_client_fk` FOREIGN KEY (`paymentClientId`) REFERENCES `client` (`clientId`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payment`
+--
+
+LOCK TABLES `payment` WRITE;
+/*!40000 ALTER TABLE `payment` DISABLE KEYS */;
+INSERT INTO `payment` VALUES (13,1,2000.25,118,0),(14,1,2000.25,118,0),(15,1,2000.25,118,0),(16,1,2,118,0);
+/*!40000 ALTER TABLE `payment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `query`
 --
 
@@ -115,6 +173,7 @@ CREATE TABLE `query` (
   `queryRoomBookingDate` datetime DEFAULT NULL,
   `queryRomStartDate` date DEFAULT NULL,
   `queryRoomEndDate` date DEFAULT NULL,
+  `queryAmount` double DEFAULT NULL,
   `queryClientEmail` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `queryStatus` int(11) DEFAULT NULL,
   PRIMARY KEY (`queryId`),
@@ -124,7 +183,7 @@ CREATE TABLE `query` (
   CONSTRAINT `query_query_status_fk` FOREIGN KEY (`queryStatus`) REFERENCES `query_status` (`queryStatusId`),
   CONSTRAINT `query_roomlevel_fk` FOREIGN KEY (`queryRoomLevel`) REFERENCES `roomlevel` (`roomLevelID`),
   CONSTRAINT `query_roomtype_fk` FOREIGN KEY (`queryRoomType`) REFERENCES `roomtype` (`roomTypeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Clients queries';
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Clients queries';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +192,7 @@ CREATE TABLE `query` (
 
 LOCK TABLES `query` WRITE;
 /*!40000 ALTER TABLE `query` DISABLE KEYS */;
-INSERT INTO `query` VALUES (51,5,4,'2019-06-16 03:00:15','2019-06-16','2019-06-30','timur.kolomiiets@gmail.com',1);
+INSERT INTO `query` VALUES (74,5,4,'2019-06-18 11:40:01','2019-07-05','2019-07-07',2000.25,'timur.kolomiiets@gmail.com',3),(75,3,2,'2019-06-18 12:14:36','2019-06-18','2019-06-28',2000.25,'timur.kolomiiets@gmail.com',3),(77,5,4,'2019-06-18 15:20:07','2019-06-27','2019-06-28',2000.25,'timur.kolomiiets@gmail.com',3),(81,1,2,'2019-06-18 23:20:02','2019-06-20','2019-06-22',2,'timur.kolomiiets@gmail.com',3),(82,3,2,'2019-06-18 23:22:16','2019-06-20','2019-06-28',8,'timur.kolomiiets@gmail.com',1);
 /*!40000 ALTER TABLE `query` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +216,7 @@ CREATE TABLE `query_status` (
 
 LOCK TABLES `query_status` WRITE;
 /*!40000 ALTER TABLE `query_status` DISABLE KEYS */;
-INSERT INTO `query_status` VALUES (1,'PROCESSING'),(2,'REFUSE'),(3,'SUCCESS');
+INSERT INTO `query_status` VALUES (1,'PROCESSING'),(2,'DENY'),(3,'SUCCESS');
 /*!40000 ALTER TABLE `query_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,7 +253,7 @@ CREATE TABLE `room` (
 
 LOCK TABLES `room` WRITE;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
-INSERT INTO `room` VALUES (1,1,1,200,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(2,1,1,200,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(3,1,2,350,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(4,1,2,350,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(5,2,1,450,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(6,2,1,450,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(7,2,2,500,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(8,2,2,500,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(9,2,2,500,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(10,2,3,600,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(11,2,3,600,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(12,2,3,600,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(13,3,2,650,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(14,3,2,650,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(15,3,3,650,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(16,4,1,700,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(17,4,1,700,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(18,4,2,750,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(19,4,2,750,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(20,4,3,750,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(26,5,3,1000,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(27,5,4,1000,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(28,5,4,1000,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0);
+INSERT INTO `room` VALUES (1,1,1,200,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(2,1,1,200,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(3,1,2,350,'2019-06-18 23:20:02','2019-06-20','2019-06-22',24,118),(4,1,2,350,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(5,2,1,450,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(6,2,1,450,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(7,2,2,500,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(8,2,2,500,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(9,2,2,500,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(10,2,3,600,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(11,2,3,600,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(12,2,3,600,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(13,3,1,600,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(14,3,2,650,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(15,3,3,700,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(16,4,1,700,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(17,4,1,700,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(18,4,2,750,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(19,4,2,750,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(20,4,3,800,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(26,5,3,1000,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(27,5,4,1200,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0),(28,5,4,1200,'1900-01-01 00:00:00','1900-01-01','1900-01-01',24,0);
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,4 +314,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-16  3:04:15
+-- Dump completed on 2019-06-20  8:36:36
