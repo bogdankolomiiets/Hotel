@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.Date;
 
 public class RoomModel implements RoomDAO {
-    private Connection connection = new ConnectionProvider().getConnection();
+    private Connection connection;
     private Statement statement;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
@@ -29,6 +29,7 @@ public class RoomModel implements RoomDAO {
     @Override
     public Room getRoomByNumber(int roomNumber) {
         try {
+            connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM room where roomNumber = '" + roomNumber + "'");
             return extractHotelFromResultSet(resultSet);
@@ -42,6 +43,7 @@ public class RoomModel implements RoomDAO {
     public List<Room> getRoomByType(RoomType roomType) {
         List<Room> roomList = new ArrayList<>();
         try {
+            connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM room where roomTypeId = '" + roomType.getIntValue() + "'");
             Room room;
@@ -86,6 +88,7 @@ public class RoomModel implements RoomDAO {
     public List<Room> getRoomByTypeAndLevel(RoomType roomType, RoomLevel roomLevel) {
         List<Room> roomList = new ArrayList<>();
         try {
+            connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM room where roomTypeId = '" + roomType.getIntValue()
                     + "' AND roomLevelId = '" + roomLevel + "'");
@@ -102,6 +105,7 @@ public class RoomModel implements RoomDAO {
     @Override
     public boolean insertRoom(Room room) {
         try {
+            connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             int result = statement.executeUpdate("INSERT INTO room VALUES ('" + room.getRoomNumber() + "', '"
                     + room.getRoomType().getIntValue() + "', '" + room.getRoomLevel().getIntValue() + "', '"
@@ -119,6 +123,7 @@ public class RoomModel implements RoomDAO {
     @Override
     public boolean updateRoom(Room room, int roomNumber) {
         try {
+            connection = new ConnectionProvider().getConnection();
             preparedStatement = connection.prepareStatement("UPDATE room SET roomNumber=?, roomTypeId=?," +
                     "roomLevelId=?, roomPrice=?, roomBookingDate=?, roomStartDate=?, roomEndDate=?, hotelID=?," +
                     "clientID=? WHERE roomNumber=?");
@@ -144,6 +149,7 @@ public class RoomModel implements RoomDAO {
     @Override
     public int updatePrice(double oldPrice, double newPrice) {
         try {
+            connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             int result = statement.executeUpdate("UPDATE room SET roomPrice = '" + newPrice
                     + "' WHERE roomPrice = '" + oldPrice + "'");
@@ -157,6 +163,7 @@ public class RoomModel implements RoomDAO {
     @Override
     public boolean deleteRoom(int roomNumber) {
         try {
+            connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             int result = statement.executeUpdate("DELETE FROM room WHERE roomNumber = '"
                     + roomNumber + "'");
@@ -199,6 +206,7 @@ public class RoomModel implements RoomDAO {
     public List<Room> getAllRooms() {
         List<Room> roomList = new ArrayList<>();
         try {
+            connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT roomNumber,\n" +
                     "       roomtype.roomTypeName as roomTypeId,\n" +
@@ -246,6 +254,7 @@ public class RoomModel implements RoomDAO {
     @Override
     public double getRoomPrice(RoomType roomType, RoomLevel roomLevel) {
         try {
+            connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT roomPrice FROM room WHERE roomTypeId = " + roomType.getIntValue() +
                     " AND roomLevelId = " + roomLevel.getIntValue());
@@ -262,6 +271,7 @@ public class RoomModel implements RoomDAO {
     public List<Room> getAvailableRooms(RoomType roomType, RoomLevel roomLevel, Date roomStartDate) {
         List<Room> roomList = new ArrayList<>();
         try {
+            connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM room WHERE roomTypeId = '" + roomType.getIntValue() +
                     "' AND roomLevelId = '" + roomLevel.getIntValue() + "' AND roomEndDate <= '" + toSQLDate(roomStartDate) + "' OR roomEndDate IS NULL");
@@ -279,6 +289,7 @@ public class RoomModel implements RoomDAO {
     public List<Room> getDistinctRooms() {
         List<Room> roomList = new ArrayList<>();
         try {
+            connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT distinct roomTypeId,\n" +
                     "       roomLevelId, roomPrice FROM room");
