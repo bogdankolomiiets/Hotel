@@ -3,7 +3,7 @@ package com.hotel.mariam.model;
 import com.hotel.mariam.dao.ClientDAO;
 import com.hotel.mariam.entity.Client;
 import com.hotel.mariam.constants.ClientRole;
-import com.hotel.mariam.logic.ConnectionProvider;
+import com.hotel.mariam.ConnectionProvider;
 import org.mindrot.jbcrypt.BCrypt;
 import java.sql.*;
 import java.util.ArrayList;

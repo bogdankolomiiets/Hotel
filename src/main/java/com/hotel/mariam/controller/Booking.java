@@ -6,25 +6,20 @@ import com.hotel.mariam.constants.RoomType;
 import com.hotel.mariam.dao.QueryDAO;
 import com.hotel.mariam.dao.RoomDAO;
 import com.hotel.mariam.entity.*;
-import com.hotel.mariam.logic.ConnectionProvider;
-import com.hotel.mariam.logic.SessionHelper;
+import com.hotel.mariam.SessionHelper;
 import com.hotel.mariam.model.QueryModel;
 import com.hotel.mariam.model.RoomModel;
-import org.apache.log4j.Logger;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Booking extends HttpServlet {
-    private static Logger LOGGER = Logger.getLogger(Booking.class);
     private RequestDispatcher dispatcher;
     private QueryDAO queryDAO = new QueryModel();
     private RoomDAO roomDAO = new RoomModel();

@@ -10,7 +10,7 @@ import com.hotel.mariam.model.BankModel;
 import com.hotel.mariam.model.ClientModel;
 import com.hotel.mariam.model.PaymentModel;
 import com.hotel.mariam.model.QueryModel;
-import com.hotel.mariam.logic.SessionHelper;
+import com.hotel.mariam.SessionHelper;
 import org.apache.log4j.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

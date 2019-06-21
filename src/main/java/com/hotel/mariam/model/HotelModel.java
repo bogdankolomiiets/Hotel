@@ -2,7 +2,7 @@ package com.hotel.mariam.model;
 
 import com.hotel.mariam.dao.HotelDAO;
 import com.hotel.mariam.entity.Hotel;
-import com.hotel.mariam.logic.ConnectionProvider;
+import com.hotel.mariam.ConnectionProvider;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -46,40 +46,44 @@ public class HotelModel implements HotelDAO {
     }
 
     public boolean insertHotel(Hotel hotel) {
-        try {
-            String insertCommand = "INSERT INTO hotel (hotelName, hotelAddress, hotelPhone, " +
-                    "hotelCountOfFloors, hotelCountOfStars) " +
-                    "VALUES ('" + hotel.getName() + "', '" + hotel.getAddress() + "', '" + hotel.getPhone()
-                    + "', '" + hotel.getCountOfFloors() + "', '" + hotel.getCountOfStars() + "')";
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
-            int result = statement.executeUpdate(insertCommand);
-            if (result == 1){
-                return true;
+        if (hotel != null) {
+            try {
+                String insertCommand = "INSERT INTO hotel (hotelName, hotelAddress, hotelPhone, " +
+                        "hotelCountOfFloors, hotelCountOfStars) " +
+                        "VALUES ('" + hotel.getName() + "', '" + hotel.getAddress() + "', '" + hotel.getPhone()
+                        + "', '" + hotel.getCountOfFloors() + "', '" + hotel.getCountOfStars() + "')";
+                connection = new ConnectionProvider().getConnection();
+                statement = connection.createStatement();
+                int result = statement.executeUpdate(insertCommand);
+                if (result == 1) {
+                    return true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return false;
     }
 
     public boolean updateHotel(Hotel hotel, String hotelName) {
-        try {
-            connection = new ConnectionProvider().getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE hotel SET hotelName=?, hotelAddress=?," +
-                    "hotelPhone=?, hotelCountOfFloors=?, hotelCountOfStars=? WHERE hotelName =?");
-            preparedStatement.setString(1, hotel.getName());
-            preparedStatement.setString(2, hotel.getAddress());
-            preparedStatement.setString(3, hotel.getPhone());
-            preparedStatement.setInt(4, hotel.getCountOfFloors());
-            preparedStatement.setInt(5, hotel.getCountOfStars());
-            preparedStatement.setString(6, hotelName);
-            int result = preparedStatement.executeUpdate();
-            if (result > 0){
-                return true;
+        if (hotel != null) {
+            try {
+                connection = new ConnectionProvider().getConnection();
+                preparedStatement = connection.prepareStatement("UPDATE hotel SET hotelName=?, hotelAddress=?," +
+                        "hotelPhone=?, hotelCountOfFloors=?, hotelCountOfStars=? WHERE hotelName =?");
+                preparedStatement.setString(1, hotel.getName());
+                preparedStatement.setString(2, hotel.getAddress());
+                preparedStatement.setString(3, hotel.getPhone());
+                preparedStatement.setInt(4, hotel.getCountOfFloors());
+                preparedStatement.setInt(5, hotel.getCountOfStars());
+                preparedStatement.setString(6, hotelName);
+                int result = preparedStatement.executeUpdate();
+                if (result > 0) {
+                    return true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return false;
     }
@@ -89,7 +93,7 @@ public class HotelModel implements HotelDAO {
             connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             int result = statement.executeUpdate("DELETE FROM hotel WHERE hotelName LIKE '" + hotelName + "'");
-            if (result == 1) {
+            if (result > 0) {
                 return true;
             }
         } catch (SQLException e) {

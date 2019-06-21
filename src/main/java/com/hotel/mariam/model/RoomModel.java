@@ -11,7 +11,7 @@ import com.hotel.mariam.entity.Bank;
 import com.hotel.mariam.entity.Client;
 import com.hotel.mariam.entity.Payment;
 import com.hotel.mariam.entity.Room;
-import com.hotel.mariam.logic.ConnectionProvider;
+import com.hotel.mariam.ConnectionProvider;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -349,30 +349,30 @@ public class RoomModel implements RoomDAO {
     }
 /*
     public static void main(String[] args) {
-        RoomModel model = new RoomModel();
-        System.out.println(model.insertRoom(new Room(1, RoomType.SINGLE, RoomLevel.ECONOMY, 200, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(2, RoomType.SINGLE, RoomLevel.ECONOMY, 200, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(3, RoomType.SINGLE, RoomLevel.STANDARD, 350, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(4, RoomType.SINGLE, RoomLevel.STANDARD, 350, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(5, RoomType.DOUBLE, RoomLevel.ECONOMY, 450, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(6, RoomType.DOUBLE, RoomLevel.ECONOMY, 450, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(7, RoomType.DOUBLE, RoomLevel.STANDARD, 500, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(8, RoomType.DOUBLE, RoomLevel.STANDARD, 500, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(9, RoomType.DOUBLE, RoomLevel.STANDARD, 500, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(10, RoomType.DOUBLE, RoomLevel.IMPROVED, 600, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(11, RoomType.DOUBLE, RoomLevel.IMPROVED, 600, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(12, RoomType.DOUBLE, RoomLevel.IMPROVED, 600, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(13, RoomType.TRIPLE, RoomLevel.ECONOMY, 600, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(14, RoomType.TRIPLE, RoomLevel.STANDARD, 650, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(15, RoomType.TRIPLE, RoomLevel.IMPROVED, 700, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(16, RoomType.QUAD, RoomLevel.ECONOMY, 700, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(17, RoomType.QUAD, RoomLevel.ECONOMY, 700, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(18, RoomType.QUAD, RoomLevel.STANDARD, 750, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(19, RoomType.QUAD, RoomLevel.STANDARD, 750, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(20, RoomType.QUAD, RoomLevel.IMPROVED, 800, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(26, RoomType.KING, RoomLevel.IMPROVED, 1000, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(27, RoomType.KING, RoomLevel.DELUXE, 1200, HotelModel.getHotelID("Mariam"))));
-        System.out.println(model.insertRoom(new Room(28, RoomType.KING, RoomLevel.DELUXE, 1200, HotelModel.getHotelID("Mariam"))));
+        RoomModel com.hotel.mariam.logic.model = new RoomModel();
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(1, RoomType.SINGLE, RoomLevel.ECONOMY, 200, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(2, RoomType.SINGLE, RoomLevel.ECONOMY, 200, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(3, RoomType.SINGLE, RoomLevel.STANDARD, 350, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(4, RoomType.SINGLE, RoomLevel.STANDARD, 350, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(5, RoomType.DOUBLE, RoomLevel.ECONOMY, 450, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(6, RoomType.DOUBLE, RoomLevel.ECONOMY, 450, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(7, RoomType.DOUBLE, RoomLevel.STANDARD, 500, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(8, RoomType.DOUBLE, RoomLevel.STANDARD, 500, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(9, RoomType.DOUBLE, RoomLevel.STANDARD, 500, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(10, RoomType.DOUBLE, RoomLevel.IMPROVED, 600, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(11, RoomType.DOUBLE, RoomLevel.IMPROVED, 600, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(12, RoomType.DOUBLE, RoomLevel.IMPROVED, 600, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(13, RoomType.TRIPLE, RoomLevel.ECONOMY, 600, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(14, RoomType.TRIPLE, RoomLevel.STANDARD, 650, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(15, RoomType.TRIPLE, RoomLevel.IMPROVED, 700, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(16, RoomType.QUAD, RoomLevel.ECONOMY, 700, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(17, RoomType.QUAD, RoomLevel.ECONOMY, 700, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(18, RoomType.QUAD, RoomLevel.STANDARD, 750, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(19, RoomType.QUAD, RoomLevel.STANDARD, 750, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(20, RoomType.QUAD, RoomLevel.IMPROVED, 800, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(26, RoomType.KING, RoomLevel.IMPROVED, 1000, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(27, RoomType.KING, RoomLevel.DELUXE, 1200, HotelModel.getHotelID("Mariam"))));
+        System.out.println(com.hotel.mariam.logic.model.insertRoom(new Room(28, RoomType.KING, RoomLevel.DELUXE, 1200, HotelModel.getHotelID("Mariam"))));
     }
     */
 }

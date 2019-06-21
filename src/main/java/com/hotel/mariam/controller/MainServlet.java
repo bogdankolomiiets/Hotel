@@ -1,6 +1,6 @@
 package com.hotel.mariam.controller;
 
-import com.hotel.mariam.logic.SessionHelper;
+import com.hotel.mariam.SessionHelper;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

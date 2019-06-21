@@ -2,7 +2,7 @@ package com.hotel.mariam.controller;
 
 import com.hotel.mariam.dao.ClientDAO;
 import com.hotel.mariam.entity.Client;
-import com.hotel.mariam.logic.SessionHelper;
+import com.hotel.mariam.SessionHelper;
 import com.hotel.mariam.model.ClientModel;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
