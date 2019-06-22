@@ -25,6 +25,7 @@ public class QueryModelTest extends Assert {
 
     @AfterClass
     public static void destroy(){
+        queryDAO.deleteQueryByEmail(query.getClientEmail());
         query = null;
         queryDAO = null;
     }
@@ -53,6 +54,7 @@ public class QueryModelTest extends Assert {
 
     @Test
     public void getQueryByIdTest(){
+        queryDAO.insertQuery(query);
         Query query = queryDAO.getQueryById(queryDAO.getAllQueries().get(0).getQueryId());
         assertNotNull(query);
         query = queryDAO.getQueryById(-1);
@@ -61,6 +63,7 @@ public class QueryModelTest extends Assert {
 
     @Test
     public void getAllQueriesTest(){
+        queryDAO.insertQuery(query);
         List<Query> queryList = queryDAO.getAllQueries();
         assertTrue(queryList.size() > 0);
     }
@@ -71,5 +74,13 @@ public class QueryModelTest extends Assert {
         List<Query> queryList = queryDAO.getClientsQueries(query.getClientEmail());
         assertTrue(queryList.size() > 0);
         queryList = queryDAO.getClientsQueries("");
-        assertFalse(queryList.size() > 0);    }
+        assertFalse(queryList.size() > 0);
+    }
+
+    @Test
+    public void deleteQueryByEmailTest(){
+        queryDAO.insertQuery(query);
+        assertTrue(queryDAO.deleteQueryByEmail(query.getClientEmail()));
+        assertFalse(queryDAO.deleteQueryByEmail(""));
+    }
 }

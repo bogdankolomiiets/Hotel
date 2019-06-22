@@ -15,17 +15,19 @@ public class PaymentModel implements PaymentDAO {
 
     @Override
     public boolean insertPayment(Payment payment) {
-        try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
-            int result = statement.executeUpdate("INSERT INTO payment (paymentBankId, paymentAmount, paymentClientId, paymentStatus) " +
-                    "VALUES ('" + payment.getPaymentBankId() + "', '" + payment.getPaymentAmount() + "', '"
-                    + payment.getPaymentClientId() + "', '" + payment.getPaymentStatus() + "')");
-            if (result == 1){
-                return true;
+        if (payment != null) {
+            try {
+                connection = new ConnectionProvider().getConnection();
+                statement = connection.createStatement();
+                int result = statement.executeUpdate("INSERT INTO payment (paymentBankId, paymentAmount, paymentClientId, paymentStatus) " +
+                        "VALUES ('" + payment.getPaymentBankId() + "', '" + payment.getPaymentAmount() + "', '"
+                        + payment.getPaymentClientId() + "', '" + payment.getPaymentStatus() + "')");
+                if (result == 1) {
+                    return true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return false;
     }

@@ -86,6 +86,21 @@ public class QueryModel implements QueryDAO {
     }
 
     @Override
+    public boolean deleteQueryByEmail(String clientEmail) {
+        try {
+            connection = new ConnectionProvider().getConnection();
+            statement = connection.createStatement();
+            int result = statement.executeUpdate("DELETE FROM query WHERE queryClientEmail = '" + clientEmail + "'");
+            if (result > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public List<Query> getAllQueries() {
         List<Query> queryList = new ArrayList<>();
         try {

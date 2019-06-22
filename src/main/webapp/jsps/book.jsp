@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="rtt" uri="http://mariam.com/jstl/rtt" %>
 <%@ taglib prefix="rlt" uri="http://mariam.com/jstl/rlt" %>
 <fmt:setLocale value="${pageContext.response.locale}"/>
