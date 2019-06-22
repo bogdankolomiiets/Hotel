@@ -2,6 +2,7 @@ package com.hotel.mariam.model;
 
 import com.hotel.mariam.dao.HotelDAO;
 import com.hotel.mariam.entity.Hotel;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -16,6 +17,11 @@ public class HotelModelTest extends Assert {
     public static void init(){
         hotel = new Hotel("TestHotel", "Address", "phone", 5, 5);
         hotelDAO = new HotelModel();
+    }
+
+    @AfterClass
+    public static void destroy(){
+        hotelDAO.deleteHotel(hotel.getName());
     }
 
     @Test
@@ -34,6 +40,7 @@ public class HotelModelTest extends Assert {
         Hotel hotelToUpdate = new Hotel("updatedHotel", "Address", "phone", 5, 5);
         assertTrue(hotelDAO.updateHotel(hotelToUpdate, "TestHotel"));
         assertFalse(hotelDAO.updateHotel(hotelToUpdate, "TestHotel"));
+        hotelDAO.deleteHotel(hotelToUpdate.getName());
     }
 
     @Test

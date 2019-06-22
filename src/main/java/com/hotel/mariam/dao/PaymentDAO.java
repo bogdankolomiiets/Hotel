@@ -8,5 +8,6 @@ import java.util.List;
 public interface PaymentDAO {
     boolean insertPayment(Payment payment);
     boolean changePaymentStatus(int paymentId, int newPaymentStatus);
+    boolean deletePaymentByClientId(int clientId);
     List<Payment> getNotPaidClientsPayment(int clientId);
 }

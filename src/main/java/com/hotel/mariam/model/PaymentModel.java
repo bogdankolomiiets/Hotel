@@ -49,6 +49,21 @@ public class PaymentModel implements PaymentDAO {
     }
 
     @Override
+    public boolean deletePaymentByClientId(int clientId) {
+        try {
+            connection = new ConnectionProvider().getConnection();
+            statement = connection.createStatement();
+            int result = statement.executeUpdate("DELETE FROM payment WHERE paymentClientId = '" + clientId + "'");
+            if (result > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public List<Payment> getNotPaidClientsPayment(int clientId) {
         List<Payment> paymentList = new ArrayList<>();
         try {

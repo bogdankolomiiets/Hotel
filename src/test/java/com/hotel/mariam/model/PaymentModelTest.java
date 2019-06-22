@@ -35,10 +35,17 @@ public class PaymentModelTest extends Assert {
 
     @AfterClass
     public static void destroy() {
+        paymentDAO.deletePaymentByClientId(clientId);
+        clientDAO.deleteClientByEmail(client.getClientEmail());
         payment = null;
         paymentDAO = null;
         clientDAO = null;
         client = null;
+    }
+
+    @Before
+    public void beforeTests(){
+        paymentDAO.insertPayment(payment);
     }
 
         @Test
@@ -53,14 +60,18 @@ public class PaymentModelTest extends Assert {
 
     @Test
     public void changePaymentStatusTest(){
-        insertPaymentTest();
         assertTrue(paymentDAO.changePaymentStatus(paymentDAO.getNotPaidClientsPayment(payment.getPaymentClientId()).get(0).getPaymentId(), PaymentStatus.PAID));
     }
 
     @Test
     public void getNotPaidClientsPaymentTest(){
-        paymentDAO.insertPayment(payment);
         List<Payment> paymentList = paymentDAO.getNotPaidClientsPayment(clientId);
         assertTrue(paymentList.size() > 0);
+    }
+
+    @Test
+    public void deletePaymentByClientIdTest(){
+        assertTrue(paymentDAO.deletePaymentByClientId(clientId));
+
     }
 }
