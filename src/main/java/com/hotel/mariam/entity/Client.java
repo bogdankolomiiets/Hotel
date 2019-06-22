@@ -73,7 +73,7 @@ public class Client {
     }
 
     public ClientRole getClientRole() {
-        return clientRole;
+        return clientRole != null ? clientRole : ClientRole.USER;
     }
 
     public void setClientRole(ClientRole clientRole) {
