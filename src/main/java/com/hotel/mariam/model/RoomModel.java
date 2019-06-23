@@ -12,12 +12,15 @@ import com.hotel.mariam.entity.Client;
 import com.hotel.mariam.entity.Payment;
 import com.hotel.mariam.entity.Room;
 import com.hotel.mariam.ConnectionProvider;
+import org.apache.log4j.Logger;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
 public class RoomModel implements RoomDAO {
+    public static Logger LOGGER = Logger.getLogger(RoomModel.class);
     private Connection connection;
     private Statement statement;
     private PreparedStatement preparedStatement;
@@ -32,7 +35,7 @@ public class RoomModel implements RoomDAO {
             connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM room where roomNumber = '" + roomNumber + "'");
-            return extractHotelFromResultSet(resultSet);
+            return extractRoomFromResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,7 +50,7 @@ public class RoomModel implements RoomDAO {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM room where roomTypeId = '" + roomType.getIntValue() + "'");
             Room room;
-            while ((room = extractHotelFromResultSet(resultSet)) != null){
+            while ((room = extractRoomFromResultSet(resultSet)) != null){
                 roomList.add(room);
             }
         } catch (SQLException e) {
@@ -91,9 +94,9 @@ public class RoomModel implements RoomDAO {
             connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM room where roomTypeId = '" + roomType.getIntValue()
-                    + "' AND roomLevelId = '" + roomLevel + "'");
+                    + "' AND roomLevelId = '" + roomLevel.getIntValue() + "'");
             Room room;
-            while ((room = extractHotelFromResultSet(resultSet)) != null){
+            while ((room = extractRoomFromResultSet(resultSet)) != null){
                 roomList.add(room);
             }
         } catch (SQLException e) {
@@ -104,60 +107,67 @@ public class RoomModel implements RoomDAO {
 
     @Override
     public boolean insertRoom(Room room) {
-        try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
-            int result = statement.executeUpdate("INSERT INTO room VALUES ('" + room.getRoomNumber() + "', '"
-                    + room.getRoomType().getIntValue() + "', '" + room.getRoomLevel().getIntValue() + "', '"
-                    + room.getRoomPrice() + "', '" + toTimestamp(room.getRoomBookingDate()) + "', '" + toSQLDate(room.getRoomStartDate()) + "', '"
-                    + toSQLDate(room.getRoomEndDate()) + "', '" + room.getHotelID() + "', '" + room.getClientID() + "')");
-            if (result == 1){
-                return true;
+        if (room != null) {
+            try {
+                connection = new ConnectionProvider().getConnection();
+                statement = connection.createStatement();
+                int result = statement.executeUpdate("INSERT INTO room VALUES ('" + room.getRoomNumber() + "', '"
+                        + room.getRoomType().getIntValue() + "', '" + room.getRoomLevel().getIntValue() + "', '"
+                        + room.getRoomPrice() + "', '" + toTimestamp(room.getRoomBookingDate()) + "', '" + toSQLDate(room.getRoomStartDate()) + "', '"
+                        + toSQLDate(room.getRoomEndDate()) + "', '" + room.getHotelID() + "', '" + room.getClientID() + "')");
+                if (result == 1) {
+                    return true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return false;
     }
 
     @Override
     public boolean updateRoom(Room room, int roomNumber) {
-        try {
-            connection = new ConnectionProvider().getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE room SET roomNumber=?, roomTypeId=?," +
-                    "roomLevelId=?, roomPrice=?, roomBookingDate=?, roomStartDate=?, roomEndDate=?, hotelID=?," +
-                    "clientID=? WHERE roomNumber=?");
-            preparedStatement.setInt(1, room.getRoomNumber());
-            preparedStatement.setInt(2, room.getRoomType().getIntValue());
-            preparedStatement.setInt(3, room.getRoomLevel().getIntValue());
-            preparedStatement.setDouble(4, room.getRoomPrice());
-            preparedStatement.setTimestamp(5, toTimestamp(room.getRoomBookingDate()));
-            preparedStatement.setDate(6, toSQLDate(room.getRoomStartDate()));
-            preparedStatement.setDate(7, toSQLDate(room.getRoomEndDate()));
-            preparedStatement.setInt(8, room.getHotelID());
-            preparedStatement.setInt(9, room.getClientID());
-            preparedStatement.setInt(10, roomNumber);
-            int result = preparedStatement.executeUpdate();
-            if (result == 1){
-                return true;
-            }        } catch (SQLException e) {
-            e.printStackTrace();
+        if (room != null) {
+            try {
+                connection = new ConnectionProvider().getConnection();
+                preparedStatement = connection.prepareStatement("UPDATE room SET roomNumber=?, roomTypeId=?," +
+                        "roomLevelId=?, roomPrice=?, roomBookingDate=?, roomStartDate=?, roomEndDate=?, hotelID=?," +
+                        "clientID=? WHERE roomNumber=?");
+                preparedStatement.setInt(1, room.getRoomNumber());
+                preparedStatement.setInt(2, room.getRoomType().getIntValue());
+                preparedStatement.setInt(3, room.getRoomLevel().getIntValue());
+                preparedStatement.setDouble(4, room.getRoomPrice());
+                preparedStatement.setTimestamp(5, toTimestamp(room.getRoomBookingDate()));
+                preparedStatement.setDate(6, toSQLDate(room.getRoomStartDate()));
+                preparedStatement.setDate(7, toSQLDate(room.getRoomEndDate()));
+                preparedStatement.setInt(8, room.getHotelID());
+                preparedStatement.setInt(9, room.getClientID());
+                preparedStatement.setInt(10, roomNumber);
+                int result = preparedStatement.executeUpdate();
+                if (result == 1) {
+                    return true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }
 
     @Override
-    public int updatePrice(double oldPrice, double newPrice) {
+    public boolean updatePrice(double oldPrice, double newPrice) {
         try {
             connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
             int result = statement.executeUpdate("UPDATE room SET roomPrice = '" + newPrice
                     + "' WHERE roomPrice = '" + oldPrice + "'");
-            return result;
+            if (result > 0) {
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return false;
     }
 
     @Override
@@ -178,28 +188,32 @@ public class RoomModel implements RoomDAO {
 
     @Override
     public boolean bookRoom(int roomNumber, Date roomBookingDate, Date roomStartDate, Date roomEndDate, double amount, String clientEmail) throws SQLException {
-        Connection connection = new ConnectionProvider().getConnection();
-        try {
-            connection.setAutoCommit(false);
-            Client client = clientDAO.getClientByEmail(clientEmail);
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE room SET roomBookingDate=?, roomStartDate=?, roomEndDate=?, clientID=? WHERE roomNumber =?");
-            preparedStatement.setTimestamp(1, toTimestamp(roomBookingDate));
-            preparedStatement.setDate(2, toSQLDate(roomStartDate));
-            preparedStatement.setDate(3, toSQLDate(roomEndDate));
-            preparedStatement.setInt(4, client.getClientId());
-            preparedStatement.setInt(5, roomNumber);
-            preparedStatement.execute();
+        if (roomBookingDate != null && roomStartDate != null && roomEndDate != null && amount > 1) {
+            try {
+                Connection connection = new ConnectionProvider().getConnection();
+                connection.setAutoCommit(false);
+                Client client = clientDAO.getClientByEmail(clientEmail);
+                PreparedStatement preparedStatement = connection.prepareStatement("UPDATE room SET roomBookingDate=?, roomStartDate=?, roomEndDate=?, clientID=? WHERE roomNumber =?");
+                preparedStatement.setTimestamp(1, toTimestamp(roomBookingDate));
+                preparedStatement.setDate(2, toSQLDate(roomStartDate));
+                preparedStatement.setDate(3, toSQLDate(roomEndDate));
+                preparedStatement.setInt(4, client.getClientId());
+                preparedStatement.setInt(5, roomNumber);
+                preparedStatement.execute();
 
-            Bank bank = bankDAO.getBankByBIC(1234567890);
-            Payment payment = new Payment(bank.getBankId(), amount, client.getClientId(), PaymentStatus.NOT_PAID);
-            if ((paymentDAO.insertPayment(payment)) == true) {
-                connection.commit();
-                return true;
-            } else throw new SQLException();
-        } catch (SQLException e) {
-            connection.rollback();
-            return false;
+                Bank bank = bankDAO.getBankByBIC(1234567890);
+                Payment payment = new Payment(bank.getBankId(), amount, client.getClientId(), PaymentStatus.NOT_PAID);
+                if ((paymentDAO.insertPayment(payment)) == true) {
+                    connection.commit();
+                    return true;
+                } else throw new SQLException();
+            } catch (SQLException e) {
+                connection.rollback();
+                LOGGER.error(e);
+                return false;
+            }
         }
+        return false;
     }
 
     @Override
@@ -208,20 +222,9 @@ public class RoomModel implements RoomDAO {
         try {
             connection = new ConnectionProvider().getConnection();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT roomNumber,\n" +
-                    "       roomtype.roomTypeName as roomTypeId,\n" +
-                    "       roomLevel.roomLevelName as roomLevelId,\n" +
-                    "       roomPrice,\n" +
-                    "       roomBookingDate,\n" +
-                    "       roomStartDate,\n" +
-                    "       roomEndDate,\n" +
-                    "       hotelID,\n" +
-                    "       clientID\n" +
-                    "       FROM room " +
-                    "join (roomtype on room.roomTypeId = roomtype.roomTypeId)" +
-                    "join (roomlevel on room.roomLevelId = roomlevel.roomLevelID)");
+            resultSet = statement.executeQuery("SELECT * FROM room");
             Room room;
-            while ((room = extractHotelFromResultSet(resultSet)) != null) {
+            while ((room = extractRoomFromResultSet(resultSet)) != null) {
                 roomList.add(room);
             }
         } catch (SQLException e) {
@@ -230,7 +233,7 @@ public class RoomModel implements RoomDAO {
         return roomList;
     }
 
-    private Room extractHotelFromResultSet(ResultSet rs) {
+    private Room extractRoomFromResultSet(ResultSet rs) {
         Room room = null;
         try {
             if (rs.next()) {
@@ -276,7 +279,7 @@ public class RoomModel implements RoomDAO {
             resultSet = statement.executeQuery("SELECT * FROM room WHERE roomTypeId = '" + roomType.getIntValue() +
                     "' AND roomLevelId = '" + roomLevel.getIntValue() + "' AND roomEndDate <= '" + toSQLDate(roomStartDate) + "' OR roomEndDate IS NULL");
             Room room;
-            while ((room = extractHotelFromResultSet(resultSet)) != null){
+            while ((room = extractRoomFromResultSet(resultSet)) != null){
                 roomList.add(room);
             }
         } catch (SQLException e) {
@@ -294,7 +297,7 @@ public class RoomModel implements RoomDAO {
             resultSet = statement.executeQuery("SELECT distinct roomTypeId,\n" +
                     "       roomLevelId, roomPrice FROM room");
             Room room;
-            while ((room = extractShortHotelFromResultSet(resultSet)) != null) {
+            while ((room = extractShortRoomFromResultSet(resultSet)) != null) {
                 roomList.add(room);
             }
         } catch (SQLException e) {
@@ -303,7 +306,7 @@ public class RoomModel implements RoomDAO {
         return roomList;
     }
 
-    private Room extractShortHotelFromResultSet(ResultSet rs) {
+    private Room extractShortRoomFromResultSet(ResultSet rs) {
         Room room = null;
         try {
             if (rs.next()) {

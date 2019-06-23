@@ -46,9 +46,9 @@ public class HotelModelTest extends Assert {
     @Test
     public void getByHotelNameTest(){
         insertHotelTest();
-        List<Hotel> hotelList = hotelDAO.getByHotelName(hotel.getName());
+        List<Hotel> hotelList = hotelDAO.getHotelByName(hotel.getName());
         assertTrue(hotelList.size() > 0);
-        hotelList = hotelDAO.getByHotelName("");
+        hotelList = hotelDAO.getHotelByName("");
         assertFalse(hotelList.size() > 0);
     }
 

@@ -15,7 +15,7 @@ public interface RoomDAO {
     List<Room> getRoomByTypeAndLevel(RoomType roomType, RoomLevel roomLevel);
     boolean insertRoom(Room room);
     boolean updateRoom(Room room, int roomNumber);
-    int updatePrice(double oldPrice, double newPrice);
+    boolean updatePrice(double oldPrice, double newPrice);
     boolean deleteRoom(int roomNumber);
     boolean bookRoom(int roomNumber, Date roomBookingDate, Date roomStartDate, Date roomEndDate, double amount, String clientEmail) throws SQLException;
     List<Room> getAllRooms();

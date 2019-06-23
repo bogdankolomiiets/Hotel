@@ -1,6 +1,7 @@
 package com.hotel.mariam.entity;
 
 public class Hotel {
+    private int hotelId;
     private String name;
     private String address;
     private String phone;
@@ -10,13 +11,29 @@ public class Hotel {
     public Hotel() {
     }
 
-    public Hotel(String name, String address,
-                 String phone, int countOfFloors, int countOfStars) {
+    public Hotel(String name, String address, String phone, int countOfFloors, int countOfStars) {
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.countOfFloors = countOfFloors;
         this.countOfStars = countOfStars;
+    }
+
+    public Hotel(int hotelId, String name, String address, String phone, int countOfFloors, int countOfStars) {
+        this.hotelId = hotelId;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.countOfFloors = countOfFloors;
+        this.countOfStars = countOfStars;
+    }
+
+    public int getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
     }
 
     public String getName() {
@@ -62,7 +79,8 @@ public class Hotel {
     @Override
     public String toString() {
         return "Hotel{" +
-                "name='" + name + '\'' +
+                "hotelId=" + hotelId +
+                ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", countOfFloors=" + countOfFloors +

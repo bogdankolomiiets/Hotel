@@ -14,7 +14,7 @@ public class CommonFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         hotelDAO = new HotelModel();
-        mariamHotel = hotelDAO.getByHotelName("Mariam").get(0);
+        mariamHotel = hotelDAO.getHotelByName("Mariam").get(0);
     }
 
     @Override

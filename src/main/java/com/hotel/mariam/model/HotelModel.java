@@ -14,7 +14,7 @@ public class HotelModel implements HotelDAO {
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
-    public Hotel getByHotelId(int hotelId) {
+    public Hotel getHotelById(int hotelId) {
         Hotel hotel = new Hotel();
         String sqlGetByHotelId = "SELECT * FROM hotel WHERE hotelID  = " + hotelId;
         try {
@@ -28,7 +28,7 @@ public class HotelModel implements HotelDAO {
         return hotel;
     }
 
-    public List<Hotel> getByHotelName(String hotelName) {
+    public List<Hotel> getHotelByName(String hotelName) {
         List<Hotel> hotelList = new ArrayList<>();
         String sqlGetByHotelName = "SELECT * FROM hotel WHERE hotelName LIKE '" + hotelName + "'";
         try {
@@ -150,6 +150,7 @@ public class HotelModel implements HotelDAO {
         try {
             if (rs.next()) {
                 hotel = new Hotel();
+                hotel.setHotelId(rs.getInt("hotelID"));
                 hotel.setName(rs.getString("hotelName"));
                 hotel.setAddress(rs.getString("hotelAddress"));
                 hotel.setPhone(rs.getString("hotelPhone"));
