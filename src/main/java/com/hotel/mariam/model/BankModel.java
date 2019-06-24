@@ -13,12 +13,28 @@ public class BankModel implements BankDAO {
     private Statement statement;
     private ResultSet resultSet;
 
+    private void initConnectionAndStatement() throws SQLException {
+        connection = ConnectionProvider.getConnection();
+        statement = connection.createStatement();
+    }
+
+    private void closeConnection(){
+        try {
+            if (resultSet != null) resultSet.close();
+            statement.close();
+            statement = null;
+            connection.close();
+            connection = null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public boolean insertBank(Bank bank) {
         if (bank != null) {
             try {
-                connection = new ConnectionProvider().getConnection();
-                statement = connection.createStatement();
+                initConnectionAndStatement();
                 int result = statement.executeUpdate("INSERT INTO bank (bankFullName, bankShortName, bankIdentifierCode, " +
                         "bankTaxpayerIdentificationNumber, bankCardNumber) VALUES ('" + bank.getBankFullName() + "', '" + bank.getBankShortName() + "', '" +
                         bank.getBankIdentifierCode() + "', '" + bank.getBankTaxpayerIdentificationNumber() + "', '" + bank.getBankCardNumber() + "')");
@@ -27,6 +43,8 @@ public class BankModel implements BankDAO {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                closeConnection();
             }
         }
         return false;
@@ -35,14 +53,15 @@ public class BankModel implements BankDAO {
     @Override
     public boolean deleteBankByBIC(int bankIdentifierCode) {
         try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
+            initConnectionAndStatement();
             int result = statement.executeUpdate("DELETE FROM bank WHERE bankIdentifierCode = '" + bankIdentifierCode + "'");
             if (result == 1) {
                 return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
         return false;
     }
@@ -51,8 +70,7 @@ public class BankModel implements BankDAO {
     public Bank getBankById(int bankId) {
         Bank bank = new Bank();
         try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
+            initConnectionAndStatement();
             resultSet = statement.executeQuery("SELECT * FROM bank WHERE bankId = '" + bankId + "'");
             while (resultSet.next()) {
                 bank = extractBankFromResultSet(resultSet);
@@ -60,6 +78,7 @@ public class BankModel implements BankDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            closeConnection();
             return bank;
         }
     }
@@ -68,8 +87,7 @@ public class BankModel implements BankDAO {
     public Bank getBankByBIC(int bankIdentifierCode) {
         Bank bank = null;
         try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
+            initConnectionAndStatement();
             resultSet = statement.executeQuery("SELECT * FROM bank WHERE bankIdentifierCode = '" + bankIdentifierCode + "'");
             while (resultSet.next()) {
                 bank = extractBankFromResultSet(resultSet);
@@ -77,6 +95,7 @@ public class BankModel implements BankDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            closeConnection();
             return bank;
         }
     }

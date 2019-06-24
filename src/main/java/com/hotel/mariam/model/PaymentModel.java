@@ -9,16 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentModel implements PaymentDAO {
-    private Connection connection;
-    private Statement statement;
-    private ResultSet resultSet;
 
     @Override
     public boolean insertPayment(Payment payment) {
         if (payment != null) {
-            try {
-                connection = new ConnectionProvider().getConnection();
-                statement = connection.createStatement();
+            try (Connection connection = ConnectionProvider.getConnection();
+                 Statement statement = connection.createStatement()){
                 int result = statement.executeUpdate("INSERT INTO payment (paymentBankId, paymentAmount, paymentClientId, paymentStatus) " +
                         "VALUES ('" + payment.getPaymentBankId() + "', '" + payment.getPaymentAmount() + "', '"
                         + payment.getPaymentClientId() + "', '" + payment.getPaymentStatus() + "')");
@@ -34,9 +30,8 @@ public class PaymentModel implements PaymentDAO {
 
     @Override
     public boolean changePaymentStatus(int paymentId, int newPaymentStatus) {
-        try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
+        try (Connection connection = ConnectionProvider.getConnection();
+             Statement statement = connection.createStatement()){
             int result = statement.executeUpdate("UPDATE payment SET paymentStatus = " + newPaymentStatus
                     + " WHERE paymentId = " + paymentId);
             if (result == 1) {
@@ -50,9 +45,8 @@ public class PaymentModel implements PaymentDAO {
 
     @Override
     public boolean deletePaymentByClientId(int clientId) {
-        try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
+        try (Connection connection = ConnectionProvider.getConnection();
+             Statement statement = connection.createStatement()){
             int result = statement.executeUpdate("DELETE FROM payment WHERE paymentClientId = '" + clientId + "'");
             if (result > 0) {
                 return true;
@@ -66,10 +60,10 @@ public class PaymentModel implements PaymentDAO {
     @Override
     public List<Payment> getNotPaidClientsPayment(int clientId) {
         List<Payment> paymentList = new ArrayList<>();
-        try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM payment where paymentClientId = " + clientId + " AND paymentStatus = " + PaymentStatus.NOT_PAID);
+        try (Connection connection = ConnectionProvider.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM payment where paymentClientId = " + clientId
+                     + " AND paymentStatus = " + PaymentStatus.NOT_PAID)){
             Payment payment;
             while ((payment = extractPaymentFromResultSet(resultSet)) != null){
                 paymentList.add(payment);

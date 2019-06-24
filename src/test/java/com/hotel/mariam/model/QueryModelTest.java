@@ -42,13 +42,13 @@ public class QueryModelTest extends Assert {
 
     @Test
     public void deleteQueryTest() {
-        Query query = queryDAO.getAllQueries().get(0);
+        Query query = queryDAO.getClientsQueries("email").get(0);
         assertTrue(queryDAO.deleteQuery(query.getQueryId()));
     }
 
     @Test
     public void changeStatusTest() {
-        assertTrue(queryDAO.changeStatus(queryDAO.getAllQueries().get(0).getQueryId(), QueryStatus.SUCCESS));
+        assertTrue(queryDAO.changeStatus(queryDAO.getClientsQueries("email").get(0).getQueryId(), QueryStatus.SUCCESS));
         assertFalse(queryDAO.changeStatus(0, QueryStatus.SUCCESS));
     }
 

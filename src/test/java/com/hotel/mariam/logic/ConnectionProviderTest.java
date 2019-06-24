@@ -8,6 +8,6 @@ public class ConnectionProviderTest extends Assert {
 
     @Test
     public void getOneConnectionTest(){
-        assertNotNull(new ConnectionProvider().getConnection());
+        assertNotNull(ConnectionProvider.getConnection());
     }
 }

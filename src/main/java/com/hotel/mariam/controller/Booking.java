@@ -26,7 +26,7 @@ public class Booking extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("typesFromServer", RoomModel.getRoomTypes());
+        req.setAttribute("typesFromServer", roomDAO.getRoomTypes());
         //if user logged in - than book.jsp else login.jsp
         if (!SessionHelper.checkClientValid(req)){
             resp.sendRedirect("login");
@@ -44,7 +44,7 @@ public class Booking extends HttpServlet {
             req.setAttribute("previousStartDate", req.getParameter("StartDate"));
             req.setAttribute("previousEndDate", req.getParameter("EndDate"));
             req.setAttribute("previousType", typeFromJSP);
-            req.setAttribute("levelsFromServer", RoomModel.getRoomLevelsByType(RoomType.valueOf(typeFromJSP)));
+            req.setAttribute("levelsFromServer", roomDAO.getRoomLevelsByType(RoomType.valueOf(typeFromJSP)));
 
 
             if (req.getParameter("selectedLevel") != null) {

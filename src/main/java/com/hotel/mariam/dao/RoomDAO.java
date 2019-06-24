@@ -13,6 +13,8 @@ public interface RoomDAO {
     Room getRoomByNumber(int roomNumber);
     List<Room> getRoomByType(RoomType roomType);
     List<Room> getRoomByTypeAndLevel(RoomType roomType, RoomLevel roomLevel);
+    List<RoomType> getRoomTypes();
+    List<RoomLevel> getRoomLevelsByType(RoomType roomType);
     boolean insertRoom(Room room);
     boolean updateRoom(Room room, int roomNumber);
     boolean updatePrice(double oldPrice, double newPrice);

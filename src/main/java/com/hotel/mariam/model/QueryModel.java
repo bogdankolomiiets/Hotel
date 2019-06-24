@@ -13,20 +13,15 @@ import java.util.Date;
 import java.util.List;
 
 public class QueryModel implements QueryDAO {
-    private Connection connection;
-    private Statement statement;
-    private ResultSet resultSet;
 
     @Override
     public Query getQueryById(int queryId) {
         Query query = null;
-        try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("select queryId, roomtype.roomTypeName as queryRoomType, roomlevel.roomLevelName as queryRoomLevel, queryRoomBookingDate, queryRomStartDate, queryRoomEndDate, queryAmount, queryClientEmail, queryStatus FROM query\n" +
+        try (Connection connection = ConnectionProvider.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("select queryId, roomtype.roomTypeName as queryRoomType, roomlevel.roomLevelName as queryRoomLevel, queryRoomBookingDate, queryRomStartDate, queryRoomEndDate, queryAmount, queryClientEmail, queryStatus FROM query\n" +
                     "join roomtype on query.queryRoomType = roomtype.roomTypeId\n" +
-                    "join roomlevel on query.queryRoomLevel = roomlevel.roomLevelID WHERE queryId = '" + queryId + "'");
-
+                    "join roomlevel on query.queryRoomLevel = roomlevel.roomLevelID WHERE queryId = '" + queryId + "'")){
             query = extractQueryFromResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,9 +32,8 @@ public class QueryModel implements QueryDAO {
     @Override
     public boolean insertQuery(Query query) {
         if (query != null) {
-            try {
-                connection = new ConnectionProvider().getConnection();
-                statement = connection.createStatement();
+            try (Connection connection = ConnectionProvider.getConnection();
+                 Statement statement = connection.createStatement()){
                 int result = statement.executeUpdate("INSERT INTO query (queryRoomType, queryRoomLevel, queryRoomBookingDate, queryRomStartDate, " +
                         "queryRoomEndDate, queryAmount, queryClientEmail, queryStatus) VALUES ('" + query.getRoomType().getIntValue() + "', '" + query.getRoomLevel().getIntValue() + "', '"
                         + toTimestamp(query.getRoomBookingDate()) + "', '" + toSQLDate(query.getRoomStartDate()) + "', '" + toSQLDate(query.getRoomEndDate()) +
@@ -56,9 +50,8 @@ public class QueryModel implements QueryDAO {
 
     @Override
     public boolean changeStatus(int queryId, int queryStatus) {
-        try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
+        try (Connection connection = ConnectionProvider.getConnection();
+             Statement statement = connection.createStatement()){
             int result = statement.executeUpdate("UPDATE query SET queryStatus = '" + queryStatus
                     + "' WHERE queryId = '" + queryId + "'");
             if (result == 1){
@@ -72,9 +65,8 @@ public class QueryModel implements QueryDAO {
 
     @Override
     public boolean deleteQuery(int queryId) {
-        try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
+        try (Connection connection = ConnectionProvider.getConnection();
+             Statement statement = connection.createStatement()){
             int result = statement.executeUpdate("DELETE FROM query WHERE queryId = '" + queryId + "'");
             if (result == 1){
                 return true;
@@ -87,9 +79,8 @@ public class QueryModel implements QueryDAO {
 
     @Override
     public boolean deleteQueryByEmail(String clientEmail) {
-        try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
+        try (Connection connection = ConnectionProvider.getConnection();
+             Statement statement = connection.createStatement()){
             int result = statement.executeUpdate("DELETE FROM query WHERE queryClientEmail = '" + clientEmail + "'");
             if (result > 0) {
                 return true;
@@ -103,13 +94,12 @@ public class QueryModel implements QueryDAO {
     @Override
     public List<Query> getAllQueries() {
         List<Query> queryList = new ArrayList<>();
-        try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("select queryId, roomtype.roomTypeName as queryRoomType, roomlevel.roomLevelName as queryRoomLevel, " +
+        try (Connection connection = ConnectionProvider.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("select queryId, roomtype.roomTypeName as queryRoomType, roomlevel.roomLevelName as queryRoomLevel, " +
                     "queryRoomBookingDate, queryRomStartDate, queryRoomEndDate, queryAmount, queryClientEmail, queryStatus FROM query\n" +
                     "join roomtype on query.queryRoomType = roomtype.roomTypeId\n" +
-                    "join roomlevel on query.queryRoomLevel = roomlevel.roomLevelID WHERE queryStatus = " + QueryStatus.PROCESSING);
+                    "join roomlevel on query.queryRoomLevel = roomlevel.roomLevelID WHERE queryStatus = " + QueryStatus.PROCESSING)){
             Query query;
             while ((query = extractQueryFromResultSet(resultSet)) != null){
                 queryList.add(query);
@@ -123,13 +113,12 @@ public class QueryModel implements QueryDAO {
     @Override
     public List<Query> getClientsQueries(String clientEmail) {
         List<Query> queryList = new ArrayList<>();
-        try {
-            connection = new ConnectionProvider().getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("select queryId, roomtype.roomTypeName as queryRoomType, roomlevel.roomLevelName as queryRoomLevel, " +
+        try (Connection connection = ConnectionProvider.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("select queryId, roomtype.roomTypeName as queryRoomType, roomlevel.roomLevelName as queryRoomLevel, " +
                     "queryRoomBookingDate, queryRomStartDate, queryRoomEndDate, queryAmount, queryClientEmail, queryStatus FROM query\n" +
                     "join roomtype on query.queryRoomType = roomtype.roomTypeId\n" +
-                    "join roomlevel on query.queryRoomLevel = roomlevel.roomLevelID WHERE queryClientEmail ='" + clientEmail + "' AND queryStatus < " + QueryStatus.SUCCESS);
+                    "join roomlevel on query.queryRoomLevel = roomlevel.roomLevelID WHERE queryClientEmail ='" + clientEmail + "' AND queryStatus < " + QueryStatus.SUCCESS)){
             Query query;
             while ((query = extractQueryFromResultSet(resultSet)) != null){
                 queryList.add(query);

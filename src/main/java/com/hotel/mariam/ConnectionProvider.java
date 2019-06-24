@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionProvider {
-    private BasicDataSource dataSource = new BasicDataSource();
-    private Properties connProperties = new Properties();
+    private static BasicDataSource dataSource = new BasicDataSource();
+    private static Properties connProperties = new Properties();
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         //load properties from conn.properties
         try {
             connProperties.load(ConnectionProvider.class.getClassLoader().getResourceAsStream("conn.properties"));
@@ -36,6 +36,8 @@ public class ConnectionProvider {
         dataSource.setMaxWait(Integer.valueOf(connProperties.getProperty("maxWait")));
 
         try {
+            System.out.println("NumIdle = " + dataSource.getNumIdle());
+            System.out.println("Active = " + dataSource.getNumActive());
             return dataSource.getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
