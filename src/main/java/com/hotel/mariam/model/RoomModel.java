@@ -28,6 +28,25 @@ public class RoomModel implements RoomDAO {
     private BankDAO bankDAO = new BankModel();
     private ClientDAO clientDAO = new ClientModel();
 
+    private void initConnectionAndStatement() throws SQLException {
+        connection = ConnectionProvider.getConnection();
+        statement = connection.createStatement();
+    }
+
+    private void closeConnection(){
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+                resultSet = null;
+            }
+            statement.close();
+            statement = null;
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public Room getRoomByNumber(int roomNumber) {
         try {
@@ -210,9 +229,9 @@ public class RoomModel implements RoomDAO {
     @Override
     public boolean bookRoom(int roomNumber, Date roomBookingDate, Date roomStartDate, Date roomEndDate, double amount, String clientEmail) throws SQLException {
         if (roomBookingDate != null && roomStartDate != null && roomEndDate != null && amount > 1) {
-            Connection connection = ConnectionProvider.getConnection();
+            connection = ConnectionProvider.getConnection();
             connection.setAutoCommit(false);
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE room SET roomBookingDate=?, roomStartDate=?, roomEndDate=?, clientID=? WHERE roomNumber =?");
+            preparedStatement = connection.prepareStatement("UPDATE room SET roomBookingDate=?, roomStartDate=?, roomEndDate=?, clientID=? WHERE roomNumber =?");
 
             try {
                 Client client = clientDAO.getClientByEmail(clientEmail);
@@ -384,23 +403,6 @@ public class RoomModel implements RoomDAO {
         } else return java.sql.Date.valueOf("1900-01-01");
     }
 
-    private void initConnectionAndStatement() throws SQLException {
-        connection = ConnectionProvider.getConnection();
-        statement = connection.createStatement();
-    }
-
-    private void closeConnection(){
-        try {
-            if (resultSet != null) resultSet.close();
-            statement.close();
-            statement = null;
-            connection.close();
-            connection = null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-/*
     public static void main(String[] args) {
         RoomDAO model = new RoomModel();
         System.out.println(model.insertRoom(new Room(1, RoomType.SINGLE, RoomLevel.ECONOMY, 200, HotelModel.getHotelID("Mariam"))));
@@ -426,6 +428,6 @@ public class RoomModel implements RoomDAO {
         System.out.println(model.insertRoom(new Room(21, RoomType.KING, RoomLevel.IMPROVED, 1000, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(22, RoomType.KING, RoomLevel.DELUXE, 1200, HotelModel.getHotelID("Mariam"))));
         System.out.println(model.insertRoom(new Room(23, RoomType.KING, RoomLevel.DELUXE, 1200, HotelModel.getHotelID("Mariam"))));
-    }*/
+    }
 
 }

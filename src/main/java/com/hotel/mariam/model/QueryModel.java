@@ -13,27 +13,49 @@ import java.util.Date;
 import java.util.List;
 
 public class QueryModel implements QueryDAO {
+    private Connection connection;
+    private Statement statement;
+    private ResultSet resultSet;
+
+    private void initConnectionAndStatement() throws SQLException {
+        connection = ConnectionProvider.getConnection();
+        statement = connection.createStatement();
+    }
+
+    private void closeConnection(){
+        try {
+            if (resultSet != null) resultSet.close();
+            statement.close();
+            statement = null;
+            connection.close();
+            connection = null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public Query getQueryById(int queryId) {
         Query query = null;
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("select queryId, roomtype.roomTypeName as queryRoomType, roomlevel.roomLevelName as queryRoomLevel, queryRoomBookingDate, queryRomStartDate, queryRoomEndDate, queryAmount, queryClientEmail, queryStatus FROM query\n" +
+        try {
+            initConnectionAndStatement();
+            resultSet = statement.executeQuery("select queryId, roomtype.roomTypeName as queryRoomType, roomlevel.roomLevelName as queryRoomLevel, queryRoomBookingDate, queryRomStartDate, queryRoomEndDate, queryAmount, queryClientEmail, queryStatus FROM query\n" +
                     "join roomtype on query.queryRoomType = roomtype.roomTypeId\n" +
-                    "join roomlevel on query.queryRoomLevel = roomlevel.roomLevelID WHERE queryId = '" + queryId + "'")){
+                    "join roomlevel on query.queryRoomLevel = roomlevel.roomLevelID WHERE queryId = '" + queryId + "'");
             query = extractQueryFromResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
+            return query;
         }
-        return query;
     }
 
     @Override
     public boolean insertQuery(Query query) {
         if (query != null) {
-            try (Connection connection = ConnectionProvider.getConnection();
-                 Statement statement = connection.createStatement()){
+            try {
+                initConnectionAndStatement();
                 int result = statement.executeUpdate("INSERT INTO query (queryRoomType, queryRoomLevel, queryRoomBookingDate, queryRomStartDate, " +
                         "queryRoomEndDate, queryAmount, queryClientEmail, queryStatus) VALUES ('" + query.getRoomType().getIntValue() + "', '" + query.getRoomLevel().getIntValue() + "', '"
                         + toTimestamp(query.getRoomBookingDate()) + "', '" + toSQLDate(query.getRoomStartDate()) + "', '" + toSQLDate(query.getRoomEndDate()) +
@@ -43,6 +65,8 @@ public class QueryModel implements QueryDAO {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                closeConnection();
             }
         }
         return false;
@@ -50,8 +74,8 @@ public class QueryModel implements QueryDAO {
 
     @Override
     public boolean changeStatus(int queryId, int queryStatus) {
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement()){
+        try {
+            initConnectionAndStatement();
             int result = statement.executeUpdate("UPDATE query SET queryStatus = '" + queryStatus
                     + "' WHERE queryId = '" + queryId + "'");
             if (result == 1){
@@ -59,34 +83,40 @@ public class QueryModel implements QueryDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
         return false;
     }
 
     @Override
     public boolean deleteQuery(int queryId) {
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement()){
+        try {
+            initConnectionAndStatement();
             int result = statement.executeUpdate("DELETE FROM query WHERE queryId = '" + queryId + "'");
             if (result == 1){
                 return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
         return false;
     }
 
     @Override
     public boolean deleteQueryByEmail(String clientEmail) {
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement()){
+        try {
+            initConnectionAndStatement();
             int result = statement.executeUpdate("DELETE FROM query WHERE queryClientEmail = '" + clientEmail + "'");
             if (result > 0) {
                 return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
         return false;
     }
@@ -94,12 +124,12 @@ public class QueryModel implements QueryDAO {
     @Override
     public List<Query> getAllQueries() {
         List<Query> queryList = new ArrayList<>();
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("select queryId, roomtype.roomTypeName as queryRoomType, roomlevel.roomLevelName as queryRoomLevel, " +
+        try {
+            initConnectionAndStatement();
+            resultSet = statement.executeQuery("select queryId, roomtype.roomTypeName as queryRoomType, roomlevel.roomLevelName as queryRoomLevel, " +
                     "queryRoomBookingDate, queryRomStartDate, queryRoomEndDate, queryAmount, queryClientEmail, queryStatus FROM query\n" +
                     "join roomtype on query.queryRoomType = roomtype.roomTypeId\n" +
-                    "join roomlevel on query.queryRoomLevel = roomlevel.roomLevelID WHERE queryStatus = " + QueryStatus.PROCESSING)){
+                    "join roomlevel on query.queryRoomLevel = roomlevel.roomLevelID WHERE queryStatus = " + QueryStatus.PROCESSING);
             Query query;
             while ((query = extractQueryFromResultSet(resultSet)) != null){
                 queryList.add(query);
@@ -107,26 +137,32 @@ public class QueryModel implements QueryDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return queryList;
+        finally {
+            closeConnection();
+            return queryList;
+        }
     }
 
     @Override
     public List<Query> getClientsQueries(String clientEmail) {
         List<Query> queryList = new ArrayList<>();
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("select queryId, roomtype.roomTypeName as queryRoomType, roomlevel.roomLevelName as queryRoomLevel, " +
+        try {
+            initConnectionAndStatement();
+            resultSet = statement.executeQuery("select queryId, roomtype.roomTypeName as queryRoomType, roomlevel.roomLevelName as queryRoomLevel, " +
                     "queryRoomBookingDate, queryRomStartDate, queryRoomEndDate, queryAmount, queryClientEmail, queryStatus FROM query\n" +
                     "join roomtype on query.queryRoomType = roomtype.roomTypeId\n" +
-                    "join roomlevel on query.queryRoomLevel = roomlevel.roomLevelID WHERE queryClientEmail ='" + clientEmail + "' AND queryStatus < " + QueryStatus.SUCCESS)){
+                    "join roomlevel on query.queryRoomLevel = roomlevel.roomLevelID WHERE queryClientEmail ='" + clientEmail + "' AND queryStatus < " + QueryStatus.SUCCESS);
             Query query;
-            while ((query = extractQueryFromResultSet(resultSet)) != null){
+            while ((query = extractQueryFromResultSet(resultSet)) != null) {
                 queryList.add(query);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
+            return queryList;
         }
-        return queryList;    }
+    }
 
     private Timestamp toTimestamp(Date date){
         if (date != null) {

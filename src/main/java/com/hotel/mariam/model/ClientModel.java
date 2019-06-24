@@ -10,24 +10,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientModel implements ClientDAO {
+    private Connection connection;
+    private Statement statement;
+    private ResultSet resultSet;
+
+    private void initConnectionAndStatement() throws SQLException {
+        connection = ConnectionProvider.getConnection();
+        statement = connection.createStatement();
+    }
+
+    private void closeConnection(){
+        try {
+            if (resultSet != null) resultSet.close();
+            statement.close();
+            statement = null;
+            connection.close();
+            connection = null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public Client getClientByEmail(String clientEmail) {
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM client WHERE clientEmail LIKE '" + clientEmail + "'")){
+        try {
+            initConnectionAndStatement();
+            resultSet = statement.executeQuery("SELECT * FROM client WHERE clientEmail LIKE '" + clientEmail + "'");
             return extractClientFromResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
         return null;
     }
 
     @Override
     public Client getClient(String clientEmail, String pass) {
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM client WHERE clientEmail = '" + clientEmail + "'")){
+        try {
+            initConnectionAndStatement();
+            resultSet = statement.executeQuery("SELECT * FROM client WHERE clientEmail = '" + clientEmail + "'");
             Client client = extractClientFromResultSet(resultSet);
             if (client != null) {
                 if (BCrypt.checkpw(pass, client.getClientPass())) {
@@ -36,18 +58,22 @@ public class ClientModel implements ClientDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
         return null;
     }
 
     @Override
     public Client getClientByPhone(String clientPhone) {
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM client WHERE clientPhone LIKE '" + clientPhone + "'")){
+        try {
+            initConnectionAndStatement();
+            resultSet = statement.executeQuery("SELECT * FROM client WHERE clientPhone LIKE '" + clientPhone + "'");
             return extractClientFromResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
         return null;
     }
@@ -55,49 +81,55 @@ public class ClientModel implements ClientDAO {
     @Override
     public List<Client> getClientByName(String clientName) {
         List<Client> clientList = new ArrayList<>();
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM client WHERE clientName LIKE '" + clientName + "'")){
+        try {
+            initConnectionAndStatement();
+            resultSet = statement.executeQuery("SELECT * FROM client WHERE clientName LIKE '" + clientName + "'");
             Client client;
             while ((client = extractClientFromResultSet(resultSet)) != null){
                 clientList.add(client);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
+            return clientList;
         }
-        return clientList;
     }
 
     @Override
     public List<Client> getClientBySurname(String clientSurname) {
         List<Client> clientList = new ArrayList<>();
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM client WHERE clientSurname LIKE '" + clientSurname + "'")){
+        try {
+            initConnectionAndStatement();
+            resultSet = statement.executeQuery("SELECT * FROM client WHERE clientSurname LIKE '" + clientSurname + "'");
             Client client;
             while ((client = extractClientFromResultSet(resultSet)) != null){
                 clientList.add(client);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
+            return clientList;
         }
-        return clientList;
     }
 
     @Override
     public List<Client> getAllClients() {
         List<Client> clientList = new ArrayList<>();
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM client")){
+        try {
+            initConnectionAndStatement();
+            resultSet = statement.executeQuery("SELECT * FROM client");
             Client client;
             while ((client = extractClientFromResultSet(resultSet)) != null){
                 clientList.add(client);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
+            return clientList;
         }
-        return clientList;
     }
 
     @Override
@@ -106,12 +138,14 @@ public class ClientModel implements ClientDAO {
             String sqlInsert = "INSERT INTO client (clientName, clientSurname, clientPhone, clientEmail, clientPass, clientRole) " +
                     "VALUES ('" + client.getClientName() + "', '" + client.getClientSurname() + "', '"
                     + client.getClientPhone() + "', '" + client.getClientEmail() + "', '" + client.getClientPass() + "', '" + client.getClientRole().getIntValue() + "')";
-            try (Connection connection = ConnectionProvider.getConnection();
-                 Statement statement = connection.createStatement()) {
+            try {
+                initConnectionAndStatement();
                 int result = statement.executeUpdate(sqlInsert);
                 if (result == 1) {
                     return true;
                 }
+            } finally {
+                closeConnection();
             }
         }
         return false;
@@ -120,9 +154,12 @@ public class ClientModel implements ClientDAO {
     @Override
     public boolean updateClientByPhone(Client client, String phone) {
         if (client != null) {
-            try (Connection connection = ConnectionProvider.getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement("UPDATE client SET clientName=?, clientSurname=?," +
-                         " clientPhone=?, clientEmail=?, clientPass=?, clientRole=? WHERE clientPhone=?")){
+            PreparedStatement preparedStatement = null;
+            try {
+                connection = ConnectionProvider.getConnection();
+                preparedStatement = connection.prepareStatement("UPDATE client SET clientName=?, clientSurname=?," +
+                         " clientPhone=?, clientEmail=?, clientPass=?, clientRole=? WHERE clientPhone=?");
+
                 preparedStatement.setString(1, client.getClientName());
                 preparedStatement.setString(2, client.getClientSurname());
                 preparedStatement.setString(3, client.getClientPhone());
@@ -131,11 +168,19 @@ public class ClientModel implements ClientDAO {
                 preparedStatement.setInt(6, client.getClientRole().getIntValue());
                 preparedStatement.setString(7, phone);
                 int result = preparedStatement.executeUpdate();
+
                 if (result == 1) {
                     return true;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    preparedStatement.close();
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return false;
@@ -144,9 +189,12 @@ public class ClientModel implements ClientDAO {
     @Override
     public boolean updateClientByEmail(Client client, String email) {
         if (client != null) {
-            try (Connection connection = ConnectionProvider.getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement("UPDATE client SET clientName=?, clientSurname=?," +
-                        "clientPhone=?, clientEmail=?, clientPass=?, clientRole=? WHERE clientEmail=?")){
+            PreparedStatement preparedStatement = null;
+            try {
+                connection = ConnectionProvider.getConnection();
+                preparedStatement = connection.prepareStatement("UPDATE client SET clientName=?, clientSurname=?," +
+                        "clientPhone=?, clientEmail=?, clientPass=?, clientRole=? WHERE clientEmail=?");
+
                 preparedStatement.setString(1, client.getClientName());
                 preparedStatement.setString(2, client.getClientSurname());
                 preparedStatement.setString(3, client.getClientPhone());
@@ -155,11 +203,19 @@ public class ClientModel implements ClientDAO {
                 preparedStatement.setInt(6, client.getClientRole().getIntValue());
                 preparedStatement.setString(7, email);
                 int result = preparedStatement.executeUpdate();
+
                 if (result == 1) {
                     return true;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    preparedStatement.close();
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return false;
@@ -167,28 +223,32 @@ public class ClientModel implements ClientDAO {
 
     @Override
     public boolean deleteClientByPhone(String clientPhone) {
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement()){
+        try {
+            initConnectionAndStatement();
             int result = statement.executeUpdate("DELETE FROM client WHERE clientPhone = '" + clientPhone + "'");
             if (result == 1){
                 return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
         return false;
     }
 
     @Override
     public boolean deleteClientByEmail(String clientEmail) {
-        try (Connection connection = ConnectionProvider.getConnection();
-             Statement statement = connection.createStatement()){
+        try {
+            initConnectionAndStatement();
             int result = statement.executeUpdate("DELETE FROM client WHERE clientEmail = '" + clientEmail + "'");
             if (result == 1){
                 return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
         return false;
     }

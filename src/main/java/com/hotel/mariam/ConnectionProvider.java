@@ -32,12 +32,10 @@ public class ConnectionProvider {
         dataSource.setPassword(connProperties.getProperty("PASS"));
         dataSource.setMinIdle(Integer.parseInt(connProperties.getProperty("minIdle")));
         dataSource.setMaxIdle(Integer.parseInt(connProperties.getProperty("maxIdle")));
-        dataSource.setMaxOpenPreparedStatements(Integer.parseInt(connProperties.getProperty("maxActive")));
+        dataSource.setMaxActive(Integer.parseInt(connProperties.getProperty("maxActive")));
         dataSource.setMaxWait(Integer.valueOf(connProperties.getProperty("maxWait")));
 
         try {
-            System.out.println("NumIdle = " + dataSource.getNumIdle());
-            System.out.println("Active = " + dataSource.getNumActive());
             return dataSource.getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
